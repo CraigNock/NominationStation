@@ -1,14 +1,15 @@
 import React from 'react'; 
 import styled from 'styled-components'; 
 
-interface nomination {
-  [key: string]: string
-};
+// interface nomination {
+//   [key: string]: string
+// };
 interface props {
-  nominations: nomination[] | null
+  nominations: string[] | null,
+  toggleNomination: (film: string | null) => void,
 }
 
-const NominationDisplay: React.FC<props> = (nominations) => { 
+const NominationDisplay: React.FC<props> = (nominations, toggleNomination) => { 
 
   return (
     <StyledDiv> 

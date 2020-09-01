@@ -5,13 +5,29 @@ import SearchBar from '../Searchbar';
 import FilmsDisplay from '../FilmsDisplay';
 import NominationsDisplay from '../NominationDisplay';
 
-interface nomination {
-  [key: string]: string
-}
+// interface nomination {
+//   [key: string]: string
+// }
 
 
 const Main = () => {
-  const [nominations, setNominations] = useState<nomination[] | null>(null);
+  //Storage of user nominations(max 5)
+  const [nominations, setNominations] = useState<string[]>([]);
+
+  //Function to toggle whether film is nominated by user
+  const toggleNomination = (film : string | null): void => {
+    if(!film || nominations.length > 4) return;
+    console.log('film', film);
+    let newNoms: string[] = [...nominations];
+    if(film && nominations.includes(film)){
+      console.log('add film');
+      setNominations([...nominations, film])
+    } else {
+      console.log('remove film');
+      newNoms.splice(newNoms.indexOf(film), 1, film);
+      setNominations(newNoms);
+    };
+  };
 
   return (
     <StyledDiv>
@@ -20,9 +36,12 @@ const Main = () => {
       </Title>
       <NominationsDisplay
         nominations={nominations}
+        toggleNomination={toggleNomination}
       />
       <SearchBar/>
-      <FilmsDisplay/>
+      <FilmsDisplay
+        toggleNomination={toggleNomination}
+      />
     </StyledDiv>
   );
 }

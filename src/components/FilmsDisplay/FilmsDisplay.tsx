@@ -1,7 +1,11 @@
 import React from 'react'; 
 import styled from 'styled-components'; 
 
-const FilmsDisplay = () => { 
+interface props {
+  toggleNomination: (film: string | null) => void,
+}
+
+const FilmsDisplay: React.FC<props> = (toggleNomination) => { 
 
   return (
     <StyledDiv> 

@@ -1,7 +1,7 @@
 import React from 'react'; 
 import styled from 'styled-components'; 
 
-const ButtonNominate = () => { 
+const NominateButton = () => { 
 
   return (
     <StyledButton> 
@@ -11,7 +11,7 @@ const ButtonNominate = () => {
 }; 
 
 
-export default ButtonNominate;
+export default NominateButton;
 
 
 const StyledButton = styled.button`
