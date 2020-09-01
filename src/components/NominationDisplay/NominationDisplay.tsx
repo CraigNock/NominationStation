@@ -5,15 +5,32 @@ import styled from 'styled-components';
 //   [key: string]: string
 // };
 interface props {
-  nominations: string[] | null,
+  nominations: string[],
   toggleNomination: (film: string | null) => void,
 }
 
-const NominationDisplay: React.FC<props> = (nominations, toggleNomination) => { 
+const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => { 
 
   return (
     <StyledDiv> 
       <div> NominationDisplay </div>
+      {(nominations.length)? nominations.map((nom: string, id: number) => {
+        return (
+          <div
+            key={id}
+          >
+            <p>
+              {nom}
+            </p>
+            <button
+              onClick={()=>toggleNomination(nom)}
+            >
+              Un-Nominate
+            </button>
+          </div>
+        )
+      })
+      : ''}
     </StyledDiv> 
   ) 
 }; 

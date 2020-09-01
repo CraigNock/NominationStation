@@ -5,26 +5,28 @@ import SearchBar from '../Searchbar';
 import FilmsDisplay from '../FilmsDisplay';
 import NominationsDisplay from '../NominationDisplay';
 
+
+
 // interface nomination {
 //   [key: string]: string
 // }
 
 
 const Main = () => {
-  //Storage of user nominations(max 5)
+//Storage of user nominations(max 5)
+  //*felt that using a context provider would be overengineering.
   const [nominations, setNominations] = useState<string[]>([]);
+//storage of search results
+  const [searchResults, setSearchResults] = useState<string[]>([]);
 
-  //Function to toggle whether film is nominated by user
+//Function to toggle whether film is nominated by user
   const toggleNomination = (film : string | null): void => {
     if(!film || nominations.length > 4) return;
-    console.log('film', film);
     let newNoms: string[] = [...nominations];
-    if(film && nominations.includes(film)){
-      console.log('add film');
+    if(film && !nominations.includes(film)){
       setNominations([...nominations, film])
     } else {
-      console.log('remove film');
-      newNoms.splice(newNoms.indexOf(film), 1, film);
+      newNoms.splice(newNoms.indexOf(film), 1);
       setNominations(newNoms);
     };
   };
@@ -38,8 +40,12 @@ const Main = () => {
         nominations={nominations}
         toggleNomination={toggleNomination}
       />
-      <SearchBar/>
+      <SearchBar
+        setSearchResults={setSearchResults}
+      />
       <FilmsDisplay
+        nominations={nominations}
+        searchResults={searchResults}
         toggleNomination={toggleNomination}
       />
     </StyledDiv>

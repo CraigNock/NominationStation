@@ -5,6 +5,7 @@ import GlobalStyles from '../../Globalstyles';
 import Main from '../Main';
 
 const App = () => {
+
   return (
     <Wrapper data-css='app-div'>
       <GlobalStyles/>

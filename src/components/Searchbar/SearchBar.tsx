@@ -1,13 +1,23 @@
 import React, {useState} from 'react'; 
 import styled from 'styled-components'; 
 
-const SearchBar = () => { 
+import {getFilms} from '../../apiCalls';
+
+interface props {
+  setSearchResults: React.Dispatch<React.SetStateAction<string[]>>,
+}
+
+const SearchBar: React.FC<props> = ({setSearchResults}) => { 
+
   const [inputValue, setInputValue] = useState<string>('');
   const [disable, setDisable] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
-  const submitHandle = (input: string | null) : void => {
-    console.log('inputValue', inputValue);
-    console.log('input', input);
+  const submitHandle = async (input: string | null) : Promise<any> => {
+    if(!input) return;
+    let results: string[] = await getFilms(input);
+    console.log('submitSearch results', results);
+    setSearchResults(results);
   };
 
   return (
@@ -17,7 +27,9 @@ const SearchBar = () => {
           type='submit'
           onClick={(e)=>{
             e.preventDefault();
-            submitHandle(null);
+            if(inputValue === '') return;
+            // setDisable(true);
+            submitHandle(inputValue);
           }}
           disabled={disable}
         >

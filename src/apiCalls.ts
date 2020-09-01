@@ -1,40 +1,50 @@
-export const getFilms = (searchTerm: string | null) => {
+
+
+export const getFilms = async (searchTerm: string | null): Promise<any> => {
   if (!searchTerm) return;
 
-  fetch(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&s=${searchTerm}&type=movie`)
+  return fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${searchTerm}&type=movie`)
     .then(data => data.json())
     .then(data => {
-      if(data.status = 200){
+      if(data.Response){
         console.log('getFilms data', data);
+      //just extracting and returning name and year in a string for now
+        let films = data.Search.map((entry: {[key: string]: string})=>{
+          return `${entry.Title} ${entry.Year}`
+        })
+        return films;
       } else {
-        return null; //or status: use for error message on page
+        console.log('data.Error', data.Error);
+      //API returns error messages, can be used to inform user
+        return (data.Error? data.Error : null); 
       }
     })
     .catch(err=>{
       console.log('getFilmsFetchERR', err);
-      //setDisable(false) on other side
+      return 'An error has occured';
     })
   
 }
 
 //// response ////
-
-//"Search": [
-//   {
-//     "Title": "The Matrix",
-//     "Year": "1999",
-//     "imdbID": "tt0133093",
-//     "Type": "movie",
-//     "Poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
-//   },
-//   {
-//     "Title": "The Matrix Reloaded",
-//     "Year": "2003",
-//     "imdbID": "tt0234215",
-//     "Type": "movie",
-//     "Poster": "https://m.media-amazon.com/images/M/MV5BODE0MzZhZTgtYzkwYi00YmI5LThlZWYtOWRmNWE5ODk0NzMxXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
-//   },
-// ]
+  //{
+  // "Search": [
+  //   {
+  //     "Title": "The Matrix",
+  //     "Year": "1999",
+  //     "imdbID": "tt0133093",
+  //     "Type": "movie",
+  //     "Poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
+  //   },
+  //   {
+  //     "Title": "The Matrix Reloaded",
+  //     "Year": "2003",
+  //     "imdbID": "tt0234215",
+  //     "Type": "movie",
+  //     "Poster": "https://m.media-amazon.com/images/M/MV5BODE0MzZhZTgtYzkwYi00YmI5LThlZWYtOWRmNWE5ODk0NzMxXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
+  //   },
+  // ]
+  //}
 
 export const getSingleFilm = (idNum: number | null) => {
   if (!idNum) return;
@@ -44,6 +54,7 @@ export const getSingleFilm = (idNum: number | null) => {
   .then(data => {
     if(data.status = 200){
       console.log('getSingleFilm data', data);
+      return data;
     } else {
       return null; //or status: use for error message on page
     }
