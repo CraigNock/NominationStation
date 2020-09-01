@@ -1,11 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 
-function App() {
+import GlobalStyles from '../../Globalstyles';
+import Main from '../Main';
+
+const App = () => {
   return (
     <div>
-      Nomination Station
+      <GlobalStyles/>
+      <Main/>
     </div>
   );
-}
+};
+
+
 
 export default App;
