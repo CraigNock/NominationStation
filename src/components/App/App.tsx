@@ -6,13 +6,15 @@ import Main from '../Main';
 
 const App = () => {
   return (
-    <div>
+    <Wrapper data-css='app-div'>
       <GlobalStyles/>
       <Main/>
-    </div>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.div`
 
+`;
 
 export default App;
