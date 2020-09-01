@@ -5,8 +5,9 @@ const SearchBar = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [disable, setDisable] = useState<boolean>(false);
 
-  const submitHandle = (inputValue: string | null) : void => {
+  const submitHandle = (input: string | null) : void => {
     console.log('inputValue', inputValue);
+    console.log('input', input);
   };
 
   return (
@@ -41,7 +42,7 @@ const SearchBar = () => {
 
 
 const StyledForm = styled.form`
-
+  margin: 1rem;
 `;
 
 const SearchBox = styled.div`
@@ -51,7 +52,11 @@ const StyledInput = styled.input`
   
 `;
 const ClearButton = styled.div`
-
+  display: inline-block;
+  background: gray;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 

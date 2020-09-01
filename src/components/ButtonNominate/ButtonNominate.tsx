@@ -4,9 +4,9 @@ import styled from 'styled-components';
 const ButtonNominate = () => { 
 
   return (
-    <StyledDiv> 
-      <div> ButtonNominate </div>
-    </StyledDiv> 
+    <StyledButton> 
+      Nom
+    </StyledButton> 
   ) 
 }; 
 
@@ -14,6 +14,6 @@ const ButtonNominate = () => {
 export default ButtonNominate;
 
 
-const StyledDiv = styled.div`
+const StyledButton = styled.button`
 
 `;

@@ -15,5 +15,6 @@ export default FilmsDisplay;
 
 
 const StyledDiv = styled.div`
-
+  margin: 1rem;
+  background: slategray;
 `;
