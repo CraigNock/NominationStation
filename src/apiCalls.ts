@@ -7,7 +7,7 @@ export const getFilms = async (searchTerm: string | null): Promise<any> => {
     .then(data => data.json())
     .then(data => {
       if(data.Response){
-        console.log('getFilms data', data);
+        // console.log('getFilms data', data);
       //just extracting and returning name and year in a string for now
         let films = data.Search.map((entry: {[key: string]: string})=>{
           return `${entry.Title} ${entry.Year}`
@@ -52,7 +52,7 @@ export const getSingleFilm = (idNum: number | null) => {
   fetch(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${idNum}&type=movie&plot=full`)
   .then(data => data.json())
   .then(data => {
-    if(data.status = 200){
+    if(data.status === 200){
       console.log('getSingleFilm data', data);
       return data;
     } else {

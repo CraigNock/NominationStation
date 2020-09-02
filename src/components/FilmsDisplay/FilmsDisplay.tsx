@@ -22,7 +22,7 @@ const FilmsDisplay: React.FC<props> = ({searchResults, nominations, toggleNomina
             </p>
             <button
               onClick={()=>toggleNomination(nom)}
-              disabled={nominations.includes(nom)}
+              disabled={nominations.includes(nom) || (nominations.length > 4)}
             >
               Nominate
             </button>
