@@ -7,23 +7,41 @@ interface props {
   setSearchResults: React.Dispatch<React.SetStateAction<string[]>>,
 }
 
+interface singleFilm {
+  [key: string]: string,
+}
+
+interface getFilmsResults{
+  films: string[],
+  count: string,
+}
+
 const SearchBar: React.FC<props> = ({setSearchResults}) => { 
 
   const [inputValue, setInputValue] = useState<string>('');
   const [disable, setDisable] = useState<boolean>(false);
-  // const [error, setError] = useState<string>('');
+  const [resultCount, setResultCount] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   const submitHandle = async (input: string | null) : Promise<any> => {
     if(!input) return;
   //disables search button until results fetched
     setDisable(true);
-    let results: string[] = await getFilms(input);
+    let results: getFilmsResults = await getFilms(input);
     console.log('submitSearch results', typeof results);
-    if(typeof results === 'object')setSearchResults(results);
+    if(typeof results === 'object'){
+      setError('');
+      setResultCount(results.count);
+      setSearchResults(results.films);
+    } else {
+      setResultCount('')
+      setError(results);
+    };
     setDisable(false);
   };
 
   return (
+    <>
     <StyledForm> 
       <SearchBox>
         <StyledInput 
@@ -50,13 +68,21 @@ const SearchBar: React.FC<props> = ({setSearchResults}) => {
         Search!
       </SearchButton>
     </StyledForm> 
+    <Message>
+      <span>
+        {(resultCount !== '')? `${resultCount} results:` : ''}
+      </span>
+      {error}
+    </Message>
+    </>
   ) 
 }; 
 
 
 const StyledForm = styled.form`
   display: flex;
-  margin: 1rem;
+  align-items: center;
+  margin: 1rem 1rem .5rem;
 `;
 const SearchBox = styled.div`
   position: relative;
@@ -66,9 +92,15 @@ const SearchBox = styled.div`
   width: 100%;
 `;
 const StyledInput = styled.input`
-  height: 1.1rem;
+  height: 2rem;
   width: 100%;
+  padding: 0 2rem 0 .5rem;
   font-family: 'Raleway', sans-serif;
+  border-radius: .5rem 0 0 .5rem;
+  border: none;
+  -webkit-box-shadow: 0px 3px 15px rgba(218,165,32,.5);
+  -moz-box-shadow: 0px 3px 15px rgba(218,165,32,.5);
+  box-shadow: 0px 3px 15px rgba(218,165,32,.5);
 `;
 const ClearButton = styled.div`
   display: inline-block;
@@ -76,7 +108,7 @@ const ClearButton = styled.div`
   height: 1rem;
   width: 1rem;
   top: .25rem;
-  right: .25rem;
+  right: .5rem;
   text-align: center;
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
@@ -87,7 +119,27 @@ const ClearButton = styled.div`
   }
 `;
 const SearchButton = styled.button`
+  height: 2rem;
+  margin-left: .15rem;
   font-family: 'Limelight', cursive;
+  color: #2b2d2f;
+  background: whitesmoke;
+  border-radius: 0 .5rem .5rem 0;
+  border: none;
+  -webkit-box-shadow: 0px 3px 15px rgba(218,165,32,.5);
+  -moz-box-shadow: 0px 3px 15px rgba(218,165,32,.5);
+  box-shadow: 0px 3px 15px rgba(218,165,32,.5);
+`;
+const Message = styled.p`
+  margin-bottom: .5rem;
+  text-align: center;
+  font-size: .75rem;
+  color: goldenrod;
+  font-family: 'Limelight', cursive;
+  span{
+    color: whitesmoke;
+    font-family: 'Limelight', cursive;
+  }
 `;
 
 

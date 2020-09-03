@@ -1,11 +1,16 @@
-import React from 'react'; 
+import React, { PropsWithChildren } from 'react'; 
 import styled from 'styled-components'; 
 
-const FilmCard = () => { 
+
+interface props {
+
+};
+
+const FilmCard: React.FC<PropsWithChildren<props>> = ({children}) => { 
 
   return (
     <StyledDiv> 
-      <div> FilmCard </div>
+      {children}
     </StyledDiv> 
   ) 
 }; 
@@ -15,5 +20,14 @@ export default FilmCard;
 
 
 const StyledDiv = styled.div`
-
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  padding: .5rem;
+  margin: .5rem;
+  background: whitesmoke;
+  border-radius: .5rem;
+  color: darkslategray;
 `;

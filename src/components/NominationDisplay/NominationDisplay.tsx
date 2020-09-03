@@ -1,8 +1,13 @@
 import React, {useState} from 'react'; 
 import styled from 'styled-components'; 
 
+import FilmCard from '../FilmCard';
+import NominateButtonWrap from '../NominateButtonWrap';
+
 import {IoIosArrowDown} from 'react-icons/io';
 import {IoIosArrowUp} from 'react-icons/io';
+// import {IoMdRemoveCircle} from 'react-icons/io';
+import {IoMdRemoveCircleOutline} from 'react-icons/io';
 
 
 // interface nomination {
@@ -26,7 +31,7 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
       <NominationBar> 
         <span>Your Nominations</span> 
         <span
-          style={{color: (nominations.length === 5)? 'green': 'black'}}
+          style={{color: (nominations.length === 5)? 'darkgoldenrod': 'inherit'}}
         >
           {`${nominations.length}/5`}
         </span> 
@@ -36,7 +41,9 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
           {show? <IoIosArrowUp/> : <IoIosArrowDown/>}
         </ToggleArrow>
       </NominationBar>
-      <Gallery>
+      <Gallery
+        style={{display: show? 'flex' : 'none'}}
+      >
         {(nominations.length)? nominations.map((nom: string, id: number) => {
         return (
           <FilmCard
@@ -45,11 +52,11 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
             <p>
               {nom}
             </p>
-            <button
-              onClick={()=>toggleNomination(nom)}
-            >
-              Un-Nominate
-            </button>
+            <NominateButtonWrap color={'rgb(100,0,0)'}>
+              <button onClick={()=>toggleNomination(nom)}>
+                <IoMdRemoveCircleOutline/>
+              </button>
+            </NominateButtonWrap>
           </FilmCard>
         )
       })
@@ -69,13 +76,14 @@ const StyledDiv = styled.div`
   background: silver;
   color: darkslategray;
   border-radius: .5rem;
+  border: 3px ridge darkgoldenrod;
 `;
 const NominationBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   span {
-    font-weight: bold;
+    font-family: 'Limelight', cursive;
   }
 `;
 const ToggleArrow = styled.div`
@@ -88,15 +96,5 @@ const Gallery = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-`;
-const FilmCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 40%;
-  padding: .5rem;
-  margin: .5rem;
-  background: whitesmoke;
-  border-radius: .5rem;
+  
 `;

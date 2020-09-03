@@ -19,7 +19,7 @@ import {GiFilmSpool} from 'react-icons/gi';
 const Main = () => {
 //Storage of user nominations(max 5)
   //*felt that using a context provider would be overengineering.
-  const [nominations, setNominations] = useState<string[]>(['beef', 'beef2', 'beef3', 'beef4', 'beef5']);
+  const [nominations, setNominations] = useState<string[]>(['beef', 'beef2', 'beef3', 'beef4']);
 //storage of search results
   const [searchResults, setSearchResults] = useState<string[]>([]);
 //toggle banner open
@@ -50,16 +50,18 @@ const Main = () => {
 
   return (
     <StyledDiv>
-      <Title>
-        Nomination Station
-      </Title>
-      <NominationsDisplay
-        nominations={nominations}
-        toggleNomination={toggleNomination}
-      />
-      <SearchBar
-        setSearchResults={setSearchResults}
-      />
+      <NavBar>
+        <Title>
+          Nomination Station
+        </Title>
+        <SearchBar
+          setSearchResults={setSearchResults}
+        />
+        <NominationsDisplay
+          nominations={nominations}
+          toggleNomination={toggleNomination}
+        />
+      </NavBar>
       <FilmsDisplay
         nominations={nominations}
         searchResults={searchResults}
@@ -67,7 +69,7 @@ const Main = () => {
       />
       <Snackbar
         open={bannerOpen}
-        autoHideDuration={50000}
+        autoHideDuration={5000}
         onClose={handleClose}
         anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}
       >
@@ -90,8 +92,19 @@ const Main = () => {
 }
 
 const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 
+    'navbar'
+    'results';
+`;
+const NavBar = styled.div`
+  grid-area: navbar;
 `;
 const Title = styled.h1`
   margin: .5rem;

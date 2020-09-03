@@ -7,12 +7,15 @@ export const getFilms = async (searchTerm: string | null): Promise<any> => {
     .then(data => data.json())
     .then(data => {
       if(data.Response !== 'False'){
-        console.log('getFilms data', data);
+        console.log('getFilms number of results', data.totalResults);
       //just extracting and returning name and year in a string for now
         let films = data.Search.map((entry: {[key: string]: string})=>{
-          return `${entry.Title} ${entry.Year}`
+          return `${entry.Title} (${entry.Year})`
         })
-        return films;
+        return {
+          films,
+          count: data.totalResults,
+        };
       } else {
         console.log('data.Error', data.Error);
       //API returns error messages, can be used to inform user
