@@ -31,14 +31,9 @@ const StyledWrap = styled.div`
     height: 2.5rem;
     font-size: 2rem;
     border-radius: 50%;
-
-    /* border: 1px solid whitesmoke; */
-    /* border-color: inherit; */
-
     -webkit-box-shadow: 0px 3px 15px rgba(0,0,0,.4);
     -moz-box-shadow: 0px 3px 15px rgba(0,0,0,.4);
     box-shadow: 0px 3px 15px rgba(0,0,0,.4);
-
     &:disabled {
       color: gray;
     }

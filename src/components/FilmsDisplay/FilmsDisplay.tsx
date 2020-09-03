@@ -55,7 +55,7 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
               <NominateButtonWrap color={'goldenrod'}>
                 <button
                   onClick={()=>toggleNomination(nom)}
-                  disabled={nominations.includes(nom) || (nominations.length > 4)}
+                  disabled={((nominations.findIndex((entry:singleFilm)=> entry.imdbID === nom.imdbID)) !== -1) || (nominations.length > 4)}
                 >
                   <FaAward/>
                 </button>

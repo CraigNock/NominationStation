@@ -7,28 +7,13 @@ import NominationsDisplay from '../NominationDisplay';
 
 import {singleFilm} from '../../types';
 import {searchResults} from '../../types';
+import {usePersistedState} from '../../utils';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import {IoMdCloseCircle} from 'react-icons/io';
 import {GiFilmSpool} from 'react-icons/gi';
 
-//function to store/retrieve nomination state as a string in local storage 
-const usePersistedState: Function = (defaultValue: singleFilm[], key: string): any => {
-//retrieves from storage if available
-  const [stored, setStored] = useState<singleFilm[]>(
-    () => {
-      return (typeof key === 'string')?
-      JSON.parse(localStorage.getItem(key) || '[]') 
-      : defaultValue
-    }
-  );
-//updates storage on changes
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(stored));
-  }, [key, stored]);
 
-  return [stored, setStored] as const;
-};
 
 const Main = () => {
 //Storage of user nominations(max 5)
@@ -53,9 +38,10 @@ const Main = () => {
 
 //Function to toggle whether film is nominated by user
   const toggleNomination = (film : singleFilm): void => {
+    console.log('nominations', nominations);
     if(!film) return;
     let newNoms: singleFilm[] = [...nominations];
-    if(film && !nominations.includes(film)){
+    if((nominations.findIndex((entry:singleFilm)=> entry.imdbID === film.imdbID)) === -1){
       setNominations([...nominations, film])
     } else {
       newNoms.splice(newNoms.indexOf(film), 1);
