@@ -74,7 +74,7 @@ const StyledDiv = styled.div`
   background: silver;
   color: darkslategray;
   border-radius: .5rem;
-  border: 3px ridge darkgoldenrod;
+  border: 3px double darkgoldenrod;
   
 `;
 const NominationBar = styled.div`

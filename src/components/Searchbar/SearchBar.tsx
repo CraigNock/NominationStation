@@ -3,11 +3,12 @@ import styled from 'styled-components';
 
 import {getFilms} from '../../apiCalls';
 
-import {singleFilm} from '../../types';
 import {getFilmsResults} from '../../types';
+import {searchResults} from '../../types';
 
 interface props {
-  setSearchResults: React.Dispatch<React.SetStateAction<singleFilm[]>>,
+  searchResults: searchResults,
+  setSearchResults: React.Dispatch<React.SetStateAction<searchResults>>,
 }
 
 // interface getFilmsResults{
@@ -15,23 +16,27 @@ interface props {
 //   count: string,
 // }
 
-const SearchBar: React.FC<props> = ({setSearchResults}) => { 
+const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => { 
 
   const [inputValue, setInputValue] = useState<string>('');
   const [disable, setDisable] = useState<boolean>(false);
   const [resultCount, setResultCount] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  const submitHandle = async (input: string | null) : Promise<any> => {
-    if(!input) return;
-  //disables search button until results fetched
+  const submitHandle = async (page: number) : Promise<any> => {
+    if(!inputValue) return;
+//disables search button until results fetched
     setDisable(true);
-    let results: getFilmsResults | string = await getFilms(input);
-    console.log('submitSearch results', typeof results);
+    let results: getFilmsResults | string = await getFilms(inputValue, page);
+//if there is an error; typeof results will be 'string'
     if(typeof results === 'object'){
       setError('');
       setResultCount(results.count);
-      setSearchResults(results.films);
+      setSearchResults({
+        films: results.films,
+        searchTerm: inputValue,
+        count: results.count,
+      })
     } else {
       setResultCount('')
       setError(results);
@@ -60,7 +65,7 @@ const SearchBar: React.FC<props> = ({setSearchResults}) => {
         onClick={(e)=>{
           e.preventDefault();
           if(inputValue === '') return;
-          submitHandle(inputValue);
+          submitHandle(1);
         }}
         disabled={disable}
       >
@@ -69,7 +74,8 @@ const SearchBar: React.FC<props> = ({setSearchResults}) => {
     </StyledForm> 
     <Message>
       <span>
-        {(resultCount !== '')? `${resultCount} results:` : ''}
+        {(resultCount !== '')? 
+        `Showing ${searchResults.films.length} / ${resultCount} results:` : ''}
       </span>
       {error}
     </Message>
@@ -130,9 +136,10 @@ const SearchButton = styled.button`
   box-shadow: 0px 3px 15px rgba(218,165,32,.5);
 `;
 const Message = styled.p`
-  margin-bottom: .5rem;
-  text-align: center;
-  font-size: .75rem;
+  /* margin-bottom: .5rem; */
+  margin: 1rem 0 .5rem 2rem;
+  /* text-align: center; */
+  font-size: .8rem;
   color: goldenrod;
   font-family: 'Limelight', cursive;
   span{

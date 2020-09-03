@@ -11,6 +11,12 @@ export interface getFilmsResults{
   count: string,
 }
 
+export interface searchResults{
+  films: singleFilm[],
+  searchTerm: string,
+  count: string,
+}
+
 
 export interface basicStringObject {
   [key: string]: string,

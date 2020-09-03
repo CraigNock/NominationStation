@@ -1,27 +1,50 @@
-import React from 'react'; 
+import React, {useState} from 'react'; 
 import styled from 'styled-components'; 
 
 import FilmCard from '../FilmCard';
 import NominateButtonWrap from '../NominateButtonWrap';
+
+import {getFilms} from '../../apiCalls';
+
 import {singleFilm} from '../../types';
+import {searchResults} from '../../types';
+import {getFilmsResults} from '../../types';
 
 import {FaAward} from 'react-icons/fa';
 
 interface props {
-  searchResults: singleFilm[],
+  searchResults: searchResults,
+  setSearchResults: React.Dispatch<React.SetStateAction<searchResults>>,
   nominations: singleFilm[],
   toggleNomination: (film: singleFilm) => void,
 }
 
-const FilmsDisplay: React.FC<props> = ({searchResults, nominations, toggleNomination}) => { 
-  
+const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominations, toggleNomination}) => { 
+//to disable showmorebutton while fetching
+  const [disable, setDisable] = useState<boolean>(false);
+
+  const handleGetMoreResults = async () : Promise<any> => {
+  //if all possible results are already displayed, return
+    if(parseInt(searchResults.count) <= searchResults.films.length) return;
+    setDisable(true);
+    
+    let page = Math.floor(searchResults.films.length / 10) + 1;
+    let results: getFilmsResults | string = await getFilms(searchResults.searchTerm, page);
+    let newResults = [...searchResults.films];
+    if(typeof results === 'object'){
+      newResults = newResults.concat(results.films);
+      setSearchResults({
+        ...searchResults, 
+        films: newResults,
+      });
+    }
+    setDisable(false);
+  }
+
   return (
     <StyledDiv> 
-      <DisplayCount>
-        {(searchResults?.length > 0)? `Showing ${searchResults.length} results:` : ''} 
-      </DisplayCount>
       <Gallery>
-        {(searchResults?.length > 0)? searchResults.map((nom: singleFilm, id: number) => {
+        {(searchResults?.films.length > 0)? searchResults.films.map((nom: singleFilm, id: number) => {
           return (
             <FilmCard
               key={nom.imdbID}
@@ -42,6 +65,15 @@ const FilmsDisplay: React.FC<props> = ({searchResults, nominations, toggleNomina
           )
         })
         : ''}
+        {(parseInt(searchResults.count) > searchResults.films.length)?
+          <MoreButton
+            disabled={disable}
+            onClick={()=>handleGetMoreResults()}
+          >
+            Show More
+          </MoreButton>
+        :''
+        }
       </Gallery>
     </StyledDiv> 
   ) 
@@ -60,11 +92,15 @@ const StyledDiv = styled.div`
   border-radius: .5rem;
   /* border: 3px ridge darkgoldenrod; */
 `;
-const DisplayCount = styled.p`
-  font-family: 'Limelight', cursive;
-`;
 const Gallery = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+`;
+const MoreButton = styled.button`
+  padding: .5rem;
+  background: none;
+  color: whitesmoke;
+  font-family: 'Limelight', cursive;
+  border-radius: .5rem;
 `;

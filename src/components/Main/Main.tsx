@@ -6,16 +6,11 @@ import FilmsDisplay from '../FilmsDisplay';
 import NominationsDisplay from '../NominationDisplay';
 
 import {singleFilm} from '../../types';
+import {searchResults} from '../../types';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import {IoMdCloseCircle} from 'react-icons/io';
 import {GiFilmSpool} from 'react-icons/gi';
-
-
-// interface nomination {
-//   [key: string]: string
-// }
-
 
 
 const Main = () => {
@@ -23,15 +18,18 @@ const Main = () => {
 //*felt that using a context provider would be overengineering.
   const [nominations, setNominations] = useState<singleFilm[]>([]);
 //storage of search results
-  const [searchResults, setSearchResults] = useState<singleFilm[]>([
-    {
-          "Title": "The Matrix",
-          "Year": "1999",
-          "imdbID": "tt0133093",
-          "Type": "movie",
-          "Poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
-        }
-  ]);
+  const [searchResults, setSearchResults] = useState<searchResults>({
+    films: [{
+            "Title": "The Matrix",
+            "Year": "1999",
+            "imdbID": "tt0133093",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
+          }
+    ],
+    searchTerm: 'the matrix',
+    count: '1',
+  });
 //toggle banner open
   const[bannerOpen, setBannerOpen] = useState<boolean>(false);
 
@@ -69,12 +67,14 @@ const Main = () => {
           toggleNomination={toggleNomination}
         />
         <SearchBar
+          searchResults={searchResults}
           setSearchResults={setSearchResults}
         />
       </NavBar>
       <FilmsDisplay
         nominations={nominations}
         searchResults={searchResults}
+        setSearchResults={setSearchResults}
         toggleNomination={toggleNomination}
       />
       <Snackbar

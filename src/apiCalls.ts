@@ -1,17 +1,12 @@
 
 
-export const getFilms = async (searchTerm: string | null): Promise<any> => {
+export const getFilms = async (searchTerm: string | null, page: number): Promise<any> => {
   if (!searchTerm) return;
 
-  return fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${searchTerm}&type=movie`)
+  return fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${searchTerm}&type=movie&page=${page}`)
     .then(data => data.json())
     .then(data => {
       if(data.Response !== 'False'){
-        console.log('getFilms number of results', data.totalResults);
-      //just extracting and returning name and year in a string for now
-        // let films = data.Search.map((entry: {[key: string]: string})=>{
-        //   return `${entry.Title} (${entry.Year})`
-        // })
         return {
           films: data.Search,
           count: data.totalResults,
