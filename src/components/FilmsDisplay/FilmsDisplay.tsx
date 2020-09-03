@@ -8,11 +8,11 @@ interface props {
 }
 
 const FilmsDisplay: React.FC<props> = ({searchResults, nominations, toggleNomination}) => { 
-
+  console.log('FDsearchResults', searchResults);
   return (
     <StyledDiv> 
       <div> FilmsDisplay </div>
-      {(searchResults.length)? searchResults.map((nom: string, id: number) => {
+      {(searchResults?.length > 0)? searchResults.map((nom: string, id: number) => {
         return (
           <div
             key={id}

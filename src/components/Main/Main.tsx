@@ -19,11 +19,11 @@ import {GiFilmSpool} from 'react-icons/gi';
 const Main = () => {
 //Storage of user nominations(max 5)
   //*felt that using a context provider would be overengineering.
-  const [nominations, setNominations] = useState<string[]>([]);
+  const [nominations, setNominations] = useState<string[]>(['beef', 'beef2', 'beef3', 'beef4', 'beef5']);
 //storage of search results
   const [searchResults, setSearchResults] = useState<string[]>([]);
 //toggle banner open
-  const[bannerOpen, setBannerOpen] = useState<boolean>(true);
+  const[bannerOpen, setBannerOpen] = useState<boolean>(false);
 
 
 //Function to toggle whether film is nominated by user

@@ -18,8 +18,8 @@ const SearchBar: React.FC<props> = ({setSearchResults}) => {
   //disables search button until results fetched
     setDisable(true);
     let results: string[] = await getFilms(input);
-    // console.log('submitSearch results', results);
-    setSearchResults(results);
+    console.log('submitSearch results', typeof results);
+    if(typeof results === 'object')setSearchResults(results);
     setDisable(false);
   };
 

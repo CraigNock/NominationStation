@@ -6,8 +6,8 @@ export const getFilms = async (searchTerm: string | null): Promise<any> => {
   return fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${searchTerm}&type=movie`)
     .then(data => data.json())
     .then(data => {
-      if(data.Response){
-        // console.log('getFilms data', data);
+      if(data.Response !== 'False'){
+        console.log('getFilms data', data);
       //just extracting and returning name and year in a string for now
         let films = data.Search.map((entry: {[key: string]: string})=>{
           return `${entry.Title} ${entry.Year}`
@@ -16,7 +16,7 @@ export const getFilms = async (searchTerm: string | null): Promise<any> => {
       } else {
         console.log('data.Error', data.Error);
       //API returns error messages, can be used to inform user
-        return (data.Error? data.Error : null); 
+        return (data.Error? data.Error : 'An error has occured'); 
       }
     })
     .catch(err=>{
