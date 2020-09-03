@@ -3,18 +3,17 @@ import styled from 'styled-components';
 
 import {getFilms} from '../../apiCalls';
 
+import {singleFilm} from '../../types';
+import {getFilmsResults} from '../../types';
+
 interface props {
-  setSearchResults: React.Dispatch<React.SetStateAction<string[]>>,
+  setSearchResults: React.Dispatch<React.SetStateAction<singleFilm[]>>,
 }
 
-interface singleFilm {
-  [key: string]: string,
-}
-
-interface getFilmsResults{
-  films: string[],
-  count: string,
-}
+// interface getFilmsResults{
+//   films: string[],
+//   count: string,
+// }
 
 const SearchBar: React.FC<props> = ({setSearchResults}) => { 
 
@@ -27,7 +26,7 @@ const SearchBar: React.FC<props> = ({setSearchResults}) => {
     if(!input) return;
   //disables search button until results fetched
     setDisable(true);
-    let results: getFilmsResults = await getFilms(input);
+    let results: getFilmsResults | string = await getFilms(input);
     console.log('submitSearch results', typeof results);
     if(typeof results === 'object'){
       setError('');

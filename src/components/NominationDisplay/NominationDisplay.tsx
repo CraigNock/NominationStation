@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import FilmCard from '../FilmCard';
 import NominateButtonWrap from '../NominateButtonWrap';
+import {singleFilm} from '../../types';
 
 import {IoIosArrowDown} from 'react-icons/io';
 import {IoIosArrowUp} from 'react-icons/io';
@@ -10,17 +11,14 @@ import {IoIosArrowUp} from 'react-icons/io';
 import {IoMdRemoveCircleOutline} from 'react-icons/io';
 
 
-// interface nomination {
-//   [key: string]: string
-// };
 interface props {
-  nominations: string[],
-  toggleNomination: (film: string | null) => void,
+  nominations: singleFilm[],
+  toggleNomination: (film: singleFilm) => void,
 }
 
 const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => { 
 //state to toggle full nomination list
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(false);
 
   const toggleShow = ():void => {
     setShow(!show);
@@ -44,14 +42,14 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
       <Gallery
         style={{display: show? 'flex' : 'none'}}
       >
-        {(nominations.length)? nominations.map((nom: string, id: number) => {
+        {(nominations.length)? nominations.map((nom: singleFilm, id: number) => {
         return (
           <FilmCard
-            key={id}
+          key={nom.imdbID}
+          title={nom.Title}
+          year={nom.Year}
+          poster={nom.Poster}
           >
-            <p>
-              {nom}
-            </p>
             <NominateButtonWrap color={'rgb(100,0,0)'}>
               <button onClick={()=>toggleNomination(nom)}>
                 <IoMdRemoveCircleOutline/>
@@ -77,6 +75,7 @@ const StyledDiv = styled.div`
   color: darkslategray;
   border-radius: .5rem;
   border: 3px ridge darkgoldenrod;
+  
 `;
 const NominationBar = styled.div`
   display: flex;

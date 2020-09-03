@@ -3,31 +3,32 @@ import styled from 'styled-components';
 
 import FilmCard from '../FilmCard';
 import NominateButtonWrap from '../NominateButtonWrap';
+import {singleFilm} from '../../types';
 
 import {FaAward} from 'react-icons/fa';
 
 interface props {
-  searchResults: string[],
-  nominations: string[],
-  toggleNomination: (film: string | null) => void,
+  searchResults: singleFilm[],
+  nominations: singleFilm[],
+  toggleNomination: (film: singleFilm) => void,
 }
 
 const FilmsDisplay: React.FC<props> = ({searchResults, nominations, toggleNomination}) => { 
-  console.log('FDsearchResults', searchResults);
+  
   return (
     <StyledDiv> 
-      {/* <span>
-        {(searchResults?.length > 0)? `${searchResults.length} Results:` : ''} 
-      </span> */}
+      <DisplayCount>
+        {(searchResults?.length > 0)? `Showing ${searchResults.length} results:` : ''} 
+      </DisplayCount>
       <Gallery>
-        {(searchResults?.length > 0)? searchResults.map((nom: string, id: number) => {
+        {(searchResults?.length > 0)? searchResults.map((nom: singleFilm, id: number) => {
           return (
             <FilmCard
-              key={id}
+              key={nom.imdbID}
+              title={nom.Title}
+              year={nom.Year}
+              poster={nom.Poster}
             >
-              <p>
-                {nom}
-              </p>
               <NominateButtonWrap color={'goldenrod'}>
                 <button
                   onClick={()=>toggleNomination(nom)}
@@ -58,9 +59,9 @@ const StyledDiv = styled.div`
   overflow-Y: auto;
   border-radius: .5rem;
   /* border: 3px ridge darkgoldenrod; */
-  span{
-    font-family: 'Limelight', cursive;
-  }
+`;
+const DisplayCount = styled.p`
+  font-family: 'Limelight', cursive;
 `;
 const Gallery = styled.div`
   display: flex;

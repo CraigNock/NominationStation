@@ -9,11 +9,11 @@ export const getFilms = async (searchTerm: string | null): Promise<any> => {
       if(data.Response !== 'False'){
         console.log('getFilms number of results', data.totalResults);
       //just extracting and returning name and year in a string for now
-        let films = data.Search.map((entry: {[key: string]: string})=>{
-          return `${entry.Title} (${entry.Year})`
-        })
+        // let films = data.Search.map((entry: {[key: string]: string})=>{
+        //   return `${entry.Title} (${entry.Year})`
+        // })
         return {
-          films,
+          films: data.Search,
           count: data.totalResults,
         };
       } else {

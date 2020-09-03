@@ -5,6 +5,8 @@ import SearchBar from '../Searchbar';
 import FilmsDisplay from '../FilmsDisplay';
 import NominationsDisplay from '../NominationDisplay';
 
+import {singleFilm} from '../../types';
+
 import Snackbar from '@material-ui/core/Snackbar';
 import {IoMdCloseCircle} from 'react-icons/io';
 import {GiFilmSpool} from 'react-icons/gi';
@@ -18,18 +20,26 @@ import {GiFilmSpool} from 'react-icons/gi';
 
 const Main = () => {
 //Storage of user nominations(max 5)
-  //*felt that using a context provider would be overengineering.
-  const [nominations, setNominations] = useState<string[]>(['beef', 'beef2', 'beef3', 'beef4']);
+//*felt that using a context provider would be overengineering.
+  const [nominations, setNominations] = useState<singleFilm[]>([]);
 //storage of search results
-  const [searchResults, setSearchResults] = useState<string[]>([]);
+  const [searchResults, setSearchResults] = useState<singleFilm[]>([
+    {
+          "Title": "The Matrix",
+          "Year": "1999",
+          "imdbID": "tt0133093",
+          "Type": "movie",
+          "Poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
+        }
+  ]);
 //toggle banner open
   const[bannerOpen, setBannerOpen] = useState<boolean>(false);
 
 
 //Function to toggle whether film is nominated by user
-  const toggleNomination = (film : string | null): void => {
+  const toggleNomination = (film : singleFilm): void => {
     if(!film) return;
-    let newNoms: string[] = [...nominations];
+    let newNoms: singleFilm[] = [...nominations];
     if(film && !nominations.includes(film)){
       setNominations([...nominations, film])
     } else {
@@ -54,12 +64,12 @@ const Main = () => {
         <Title>
           Nomination Station
         </Title>
-        <SearchBar
-          setSearchResults={setSearchResults}
-        />
         <NominationsDisplay
           nominations={nominations}
           toggleNomination={toggleNomination}
+        />
+        <SearchBar
+          setSearchResults={setSearchResults}
         />
       </NavBar>
       <FilmsDisplay
