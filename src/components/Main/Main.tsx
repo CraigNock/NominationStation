@@ -12,11 +12,28 @@ import Snackbar from '@material-ui/core/Snackbar';
 import {IoMdCloseCircle} from 'react-icons/io';
 import {GiFilmSpool} from 'react-icons/gi';
 
+//function to store/retrieve nomination state as a string in local storage 
+const usePersistedState: Function = (defaultValue: singleFilm[], key: string): any => {
+//retrieves from storage if available
+  const [stored, setStored] = useState<singleFilm[]>(
+    () => {
+      return (typeof key === 'string')?
+      JSON.parse(localStorage.getItem(key) || '[]') 
+      : defaultValue
+    }
+  );
+//updates storage on changes
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(stored));
+  }, [key, stored]);
+
+  return [stored, setStored] as const;
+};
 
 const Main = () => {
 //Storage of user nominations(max 5)
 //*felt that using a context provider would be overengineering.
-  const [nominations, setNominations] = useState<singleFilm[]>([]);
+  const [nominations, setNominations] = usePersistedState([], 'nominations');
 //storage of search results
   const [searchResults, setSearchResults] = useState<searchResults>({
     films: [{
