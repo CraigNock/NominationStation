@@ -1,5 +1,6 @@
 import React, {useState} from 'react'; 
 import styled from 'styled-components'; 
+import { motion, AnimatePresence } from 'framer-motion';
 
 import FilmCard from '../FilmCard';
 import NominateButtonWrap from '../NominateButtonWrap';
@@ -43,11 +44,15 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
 
   return (
     <StyledDiv> 
-      <Gallery>
+      <AnimatePresence>
+      <Gallery
+        
+      >
         {(searchResults?.films.length > 0)? searchResults.films.map((nom: singleFilm, id: number) => {
           return (
             <FilmCard
               key={nom.imdbID}
+              index={id}
               title={nom.Title}
               year={nom.Year}
               poster={nom.Poster}
@@ -75,6 +80,7 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
         :''
         }
       </Gallery>
+      </AnimatePresence>
     </StyledDiv> 
   ) 
 }; 
@@ -92,7 +98,7 @@ const StyledDiv = styled.div`
   border-radius: .5rem;
   /* border: 3px ridge darkgoldenrod; */
 `;
-const Gallery = styled.div`
+const Gallery = styled(motion.div)`
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;

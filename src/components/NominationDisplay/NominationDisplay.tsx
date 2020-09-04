@@ -1,5 +1,6 @@
 import React, {useState} from 'react'; 
 import styled from 'styled-components'; 
+import { motion, AnimatePresence } from 'framer-motion';
 
 import FilmCard from '../FilmCard';
 import NominateButtonWrap from '../NominateButtonWrap';
@@ -25,41 +26,51 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
   }
 
   return (
-    <StyledDiv> 
-      <NominationBar> 
+    <StyledDiv > 
+      <NominationBar
+        onClick={()=>toggleShow()}
+      > 
         <span>Your Nominations</span> 
         <span
           style={{color: (nominations.length === 5)? 'darkgoldenrod': 'inherit'}}
         >
           {`${nominations.length}/5`}
         </span> 
-        <ToggleArrow
-          onClick={()=>toggleShow()}
-        >
+        <ToggleArrow>
           {show? <IoIosArrowUp/> : <IoIosArrowDown/>}
         </ToggleArrow>
       </NominationBar>
-      <Gallery
-        style={{display: show? 'flex' : 'none'}}
-      >
-        {(nominations.length)? nominations.map((nom: singleFilm, id: number) => {
-        return (
-          <FilmCard
-          key={nom.imdbID}
-          title={nom.Title}
-          year={nom.Year}
-          poster={nom.Poster}
-          >
-            <NominateButtonWrap color={'rgb(100,0,0)'}>
-              <button onClick={()=>toggleNomination(nom)}>
-                <IoMdRemoveCircleOutline/>
-              </button>
-            </NominateButtonWrap>
-          </FilmCard>
-        )
-      })
-      : ''}
-      </Gallery>
+      <AnimatePresence >
+        {show && <Gallery
+          layout
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: `${nominations.length * 8}rem` }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 1.1 }}
+        >
+          {(nominations.length)? nominations.map((nom: singleFilm, id: number) => {
+            return (
+              <FilmCard
+              key={nom.imdbID}
+              index={id}
+              title={nom.Title}
+              year={nom.Year}
+              poster={nom.Poster}
+              >
+                <NominateButtonWrap color={'rgb(100,0,0)'}>
+                  <button
+                    onClick={()=>toggleNomination(nom)}
+                  >
+                    <IoMdRemoveCircleOutline/>
+                  </button>
+                </NominateButtonWrap>
+              </FilmCard>
+            )
+          })
+          : ''}
+        </Gallery>}
+      </AnimatePresence>
+      
     </StyledDiv> 
   ) 
 }; 
@@ -68,7 +79,7 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
 export default NominationDisplay;
 
 
-const StyledDiv = styled.div`
+const StyledDiv = styled(motion.div)`
   margin: 1rem;
   padding: .5rem;
   background: silver;
@@ -84,16 +95,16 @@ const NominationBar = styled.div`
   span {
     font-family: 'Limelight', cursive;
   }
-`;
-const ToggleArrow = styled.div`
-  font-size: 1.5rem;
   &:hover{
     cursor: pointer;
   }
 `;
-const Gallery = styled.div`
+const ToggleArrow = styled.div`
+  font-size: 1.5rem;
+`;
+const Gallery = styled(motion.div)`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
-  
+  overflow: hidden;
 `;

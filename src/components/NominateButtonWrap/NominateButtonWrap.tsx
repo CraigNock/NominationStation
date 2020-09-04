@@ -1,5 +1,7 @@
 import React, { PropsWithChildren } from 'react'; 
 import styled from 'styled-components'; 
+import { motion } from 'framer-motion';
+
 
 interface props {
   color: string,
@@ -8,7 +10,11 @@ interface props {
 const NominateButtonWrap: React.FC<PropsWithChildren<props>> = ({color, children}) => { 
 
   return (
-    <StyledWrap style={{color: color, borderColor: color}}> 
+    <StyledWrap 
+      style={{color: color, borderColor: color}}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+    > 
       {children}
     </StyledWrap> 
   ) 
@@ -18,7 +24,7 @@ const NominateButtonWrap: React.FC<PropsWithChildren<props>> = ({color, children
 export default NominateButtonWrap;
 
 
-const StyledWrap = styled.div`
+const StyledWrap = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+
 
 import SearchBar from '../Searchbar';
 import FilmsDisplay from '../FilmsDisplay';
@@ -7,7 +9,9 @@ import NominationsDisplay from '../NominationDisplay';
 
 import {singleFilm} from '../../types';
 import {searchResults} from '../../types';
+
 import {usePersistedState} from '../../utils';
+import {placeholderResults} from '../../utils';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import {IoMdCloseCircle} from 'react-icons/io';
@@ -16,29 +20,17 @@ import {GiFilmSpool} from 'react-icons/gi';
 
 
 const Main = () => {
-//Storage of user nominations(max 5)
+//Storage of user nominations(max 5) (persisted in localStorage)
 //*felt that using a context provider would be overengineering.
   const [nominations, setNominations] = usePersistedState([], 'nominations');
 //storage of search results
-  const [searchResults, setSearchResults] = useState<searchResults>({
-    films: [{
-            "Title": "The Matrix",
-            "Year": "1999",
-            "imdbID": "tt0133093",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
-          }
-    ],
-    searchTerm: 'the matrix',
-    count: '1',
-  });
+  const [searchResults, setSearchResults] = useState<searchResults>(placeholderResults);
 //toggle banner open
   const[bannerOpen, setBannerOpen] = useState<boolean>(false);
 
 
 //Function to toggle whether film is nominated by user
   const toggleNomination = (film : singleFilm): void => {
-    console.log('nominations', nominations);
     if(!film) return;
     let newNoms: singleFilm[] = [...nominations];
     if((nominations.findIndex((entry:singleFilm)=> entry.imdbID === film.imdbID)) === -1){
@@ -61,45 +53,47 @@ const Main = () => {
 
   return (
     <StyledDiv>
-      <NavBar>
-        <Title>
-          Nomination Station
-        </Title>
-        <NominationsDisplay
+      <AnimateSharedLayout>
+        <NavBar>
+          <Title>
+            Nomination Station
+          </Title>
+          <NominationsDisplay
+            nominations={nominations}
+            toggleNomination={toggleNomination}
+          />
+          <SearchBar
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+          />
+        </NavBar>
+        <FilmsDisplay
           nominations={nominations}
-          toggleNomination={toggleNomination}
-        />
-        <SearchBar
           searchResults={searchResults}
           setSearchResults={setSearchResults}
+          toggleNomination={toggleNomination}
         />
-      </NavBar>
-      <FilmsDisplay
-        nominations={nominations}
-        searchResults={searchResults}
-        setSearchResults={setSearchResults}
-        toggleNomination={toggleNomination}
-      />
-      <Snackbar
-        open={bannerOpen}
-        autoHideDuration={5000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}
-      >
-        <SnackDiv>
-          <GiFilmSpool style={{fontSize:'2rem', marginRight: '.5rem',}}/>
-          <div>
-            <p>Well done!</p>
-            <p>You've nominated 5/5 films!</p>
-          </div>
-          
-          <CloseButton
-            onClick={()=>handleClose()}
-          >
-            <IoMdCloseCircle/>
-          </CloseButton>
-        </SnackDiv>
-      </Snackbar>
+        <Snackbar
+          open={bannerOpen}
+          autoHideDuration={5000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}
+        >
+          <SnackDiv>
+            <GiFilmSpool style={{fontSize:'2rem', marginRight: '.5rem',}}/>
+            <div>
+              <p>Well done!</p>
+              <p>You've nominated 5/5 films!</p>
+            </div>
+            
+            <CloseButton
+              onClick={()=>handleClose()}
+            >
+              <IoMdCloseCircle/>
+            </CloseButton>
+          </SnackDiv>
+        </Snackbar>
+      </AnimateSharedLayout>
     </StyledDiv>
   );
 }
@@ -115,6 +109,11 @@ const StyledDiv = styled.div`
   grid-template-areas: 
     'navbar'
     'results';
+
+  background: rgb(43,45,47);
+  background: linear-gradient(180deg, 
+    rgba(43,45,47,1) 60%, rgba(255,219,126,.1) 100%);
+
 `;
 const NavBar = styled.div`
   grid-area: navbar;
