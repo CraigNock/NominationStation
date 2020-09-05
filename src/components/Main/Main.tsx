@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import { motion, AnimateSharedLayout } from "framer-motion";
 
 
 import SearchBar from '../Searchbar';
@@ -12,7 +12,7 @@ import {singleFilm} from '../../types';
 import {searchResults} from '../../types';
 
 import {usePersistedState} from '../../utils';
-import {placeholderResults} from '../../utils';
+// import {placeholderResults} from '../../utils';
 
 import Snackbar from '@material-ui/core/Snackbar';
 
@@ -23,7 +23,11 @@ const Main = () => {
 //*felt that using a context provider would be overengineering.
   const [nominations, setNominations] = usePersistedState([], 'nominations');
 //storage of search results
-  const [searchResults, setSearchResults] = useState<searchResults>(placeholderResults);
+  const [searchResults, setSearchResults] = useState<searchResults>({
+    films: [],
+    searchTerm: '',
+    count: '',
+  });
 //toggle banner open
   const[bannerOpen, setBannerOpen] = useState<boolean>(false);
 
@@ -74,7 +78,7 @@ const Main = () => {
         />
         <Snackbar
           open={bannerOpen}
-          autoHideDuration={500000}
+          autoHideDuration={5000}
           onClose={handleClose}
           anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}
         >

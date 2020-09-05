@@ -12,8 +12,7 @@ export const getFilms = async (searchTerm: string | null, page: number): Promise
           count: data.totalResults,
         };
       } else {
-        console.log('data.Error', data.Error);
-      //API returns error messages, can be used to inform user
+      //API returns error messages, pass back to inform user
         return (data.Error? data.Error : 'An error has occured'); 
       }
     })
@@ -22,27 +21,8 @@ export const getFilms = async (searchTerm: string | null, page: number): Promise
       return 'An error has occured';
     })
   
-}
+};
 
-//// response ////
-  //{
-  // "Search": [
-  //   {
-  //     "Title": "The Matrix",
-  //     "Year": "1999",
-  //     "imdbID": "tt0133093",
-  //     "Type": "movie",
-  //     "Poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
-  //   },
-  //   {
-  //     "Title": "The Matrix Reloaded",
-  //     "Year": "2003",
-  //     "imdbID": "tt0234215",
-  //     "Type": "movie",
-  //     "Poster": "https://m.media-amazon.com/images/M/MV5BODE0MzZhZTgtYzkwYi00YmI5LThlZWYtOWRmNWE5ODk0NzMxXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
-  //   },
-  // ]
-  //}
 
 export const getSingleFilm = (idNum: number | null) => {
   if (!idNum) return;

@@ -12,10 +12,6 @@ interface props {
   setSearchResults: React.Dispatch<React.SetStateAction<searchResults>>,
 }
 
-// interface getFilmsResults{
-//   films: string[],
-//   count: string,
-// }
 
 const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => { 
 
@@ -24,18 +20,18 @@ const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => {
   const [resultCount, setResultCount] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  const submitHandle = async (page: number) : Promise<any> => {
-    if(!inputValue) return;
+  const submitHandle = async (search:string, page: number) : Promise<any> => {
+    if(!search || search.length < 2) return;
 //disables search button until results fetched
     setDisable(true);
-    let results: getFilmsResults | string = await getFilms(inputValue, page);
+    let results: getFilmsResults | string = await getFilms(search, page);
 //if there is an error; typeof results will be 'string'
     if(typeof results === 'object'){
       setError('');
       setResultCount(results.count);
       setSearchResults({
         films: results.films,
-        searchTerm: inputValue,
+        searchTerm: search,
         count: results.count,
       })
     } else {
@@ -51,7 +47,11 @@ const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => {
       <SearchBox>
         <StyledInput 
           type="text"
-          onChange={(e)=>setInputValue(e.target.value)}
+          onChange={(e)=>{
+            setInputValue(e.target.value);
+            if(e.target.value === '') return;
+            submitHandle(e.target.value, 1);
+          }}
           value={inputValue}
           placeholder={'Enter Film Title'}
         />
@@ -68,7 +68,7 @@ const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => {
         onClick={(e)=>{
           e.preventDefault();
           if(inputValue === '') return;
-          submitHandle(1);
+          submitHandle(inputValue, 1);
         }}
         disabled={disable}
         whileHover={{ scale: 1.1 }}
@@ -80,7 +80,7 @@ const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => {
     <Message>
       <span>
         {(resultCount !== '')? 
-        `Showing ${searchResults.films.length} / ${resultCount} results:` : ''}
+        `Showing ${searchResults.films?.length} / ${resultCount} results:` : ''}
       </span>
       {error}
     </Message>

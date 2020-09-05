@@ -48,7 +48,7 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
       <Gallery
         
       >
-        {(searchResults?.films.length > 0)? searchResults.films.map((nom: singleFilm, id: number) => {
+        {(searchResults.films?.length > 0)? searchResults.films.map((nom: singleFilm, id: number) => {
           return (
             <FilmCard
               key={nom.imdbID}
@@ -70,7 +70,7 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
           )
         })
         : ''}
-        {(parseInt(searchResults.count) > searchResults.films.length)?
+        {(parseInt(searchResults.count) > searchResults.films?.length)?
           <MoreButton
             disabled={disable}
             onClick={()=>handleGetMoreResults()}

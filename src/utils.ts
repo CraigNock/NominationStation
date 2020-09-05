@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 
 import {singleFilm} from './types';
 import {searchResults} from './types';
@@ -22,7 +22,7 @@ export const usePersistedState: Function = (defaultValue: singleFilm[], key: str
   };
 
 
-// dummy data for styling
+// temporary dummy data for ease of styling
 export const placeholderResults: searchResults = {
   films: [
     {
