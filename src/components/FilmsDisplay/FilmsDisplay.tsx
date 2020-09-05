@@ -74,6 +74,8 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
           <MoreButton
             disabled={disable}
             onClick={()=>handleGetMoreResults()}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             Show More
           </MoreButton>
@@ -91,8 +93,8 @@ export default FilmsDisplay;
 
 const StyledDiv = styled.div`
   grid-area: results;
-  margin: 0 1rem 1rem;
-  padding: .5rem;
+  margin: 0 1rem;
+  padding: .5rem .5rem 1rem .5rem;
   background: none;
   overflow-Y: auto;
   border-radius: .5rem;
@@ -103,10 +105,16 @@ const Gallery = styled(motion.div)`
   justify-content: space-evenly;
   flex-wrap: wrap;
 `;
-const MoreButton = styled.button`
+const MoreButton = styled(motion.button)`
   padding: .5rem;
   background: none;
   color: whitesmoke;
   font-family: 'Limelight', cursive;
   border-radius: .5rem;
+  border: none;
+
+  -webkit-box-shadow: 0px 3px 15px rgba(245,245,245,.5);
+  -moz-box-shadow: 0px 3px 15px rgba(245,245,245,.5);
+  box-shadow: inset 0px 3px 15px rgba(245,245,245,.5), 0px 3px 15px rgba(245,245,245,.5);
+
 `;

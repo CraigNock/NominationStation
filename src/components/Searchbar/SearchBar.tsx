@@ -1,5 +1,6 @@
 import React, {useState} from 'react'; 
 import styled from 'styled-components'; 
+import { motion } from 'framer-motion';
 
 import {getFilms} from '../../apiCalls';
 
@@ -56,6 +57,8 @@ const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => {
         />
         <ClearButton
           onClick={()=>setInputValue('')}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
           X
         </ClearButton>
@@ -68,6 +71,8 @@ const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => {
           submitHandle(1);
         }}
         disabled={disable}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
       >
         Search!
       </SearchButton>
@@ -107,7 +112,7 @@ const StyledInput = styled.input`
   -moz-box-shadow: 0px 3px 15px rgba(218,165,32,.5);
   box-shadow: 0px 3px 15px rgba(218,165,32,.5);
 `;
-const ClearButton = styled.div`
+const ClearButton = styled(motion.div)`
   display: inline-block;
   position: absolute;
   height: 1rem;
@@ -123,7 +128,7 @@ const ClearButton = styled.div`
     cursor: pointer;
   }
 `;
-const SearchButton = styled.button`
+const SearchButton = styled(motion.button)`
   height: 2rem;
   margin-left: .15rem;
   font-family: 'Limelight', cursive;

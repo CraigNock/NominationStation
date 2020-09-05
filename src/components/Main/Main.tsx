@@ -6,6 +6,7 @@ import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import SearchBar from '../Searchbar';
 import FilmsDisplay from '../FilmsDisplay';
 import NominationsDisplay from '../NominationDisplay';
+import Banner from '../Banner';
 
 import {singleFilm} from '../../types';
 import {searchResults} from '../../types';
@@ -14,8 +15,6 @@ import {usePersistedState} from '../../utils';
 import {placeholderResults} from '../../utils';
 
 import Snackbar from '@material-ui/core/Snackbar';
-import {IoMdCloseCircle} from 'react-icons/io';
-import {GiFilmSpool} from 'react-icons/gi';
 
 
 
@@ -75,23 +74,13 @@ const Main = () => {
         />
         <Snackbar
           open={bannerOpen}
-          autoHideDuration={5000}
+          autoHideDuration={500000}
           onClose={handleClose}
           anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}
         >
-          <SnackDiv>
-            <GiFilmSpool style={{fontSize:'2rem', marginRight: '.5rem',}}/>
-            <div>
-              <p>Well done!</p>
-              <p>You've nominated 5/5 films!</p>
-            </div>
-            
-            <CloseButton
-              onClick={()=>handleClose()}
-            >
-              <IoMdCloseCircle/>
-            </CloseButton>
-          </SnackDiv>
+          <Banner
+            handleClose={handleClose}
+          />
         </Snackbar>
       </AnimateSharedLayout>
     </StyledDiv>
@@ -115,9 +104,6 @@ const StyledDiv = styled.div`
     rgba(43,45,47,1) 60%, rgba(255,219,126,.1) 100%);
 
 `;
-const NavBar = styled.div`
-  grid-area: navbar;
-`;
 const Title = styled.h1`
   margin: .5rem;
   font-family: 'Limelight', cursive;
@@ -125,29 +111,10 @@ const Title = styled.h1`
   font-size: 2rem;
   text-decoration: underline;
 `;
-const SnackDiv = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 2rem;
-  background: green;
-  border-radius: 1rem;
-  p{
-    font-family: 'Limelight', cursive;
-    text-align: center;
-    /* display: inline-block; //on media^ */
-  }
+const NavBar = styled.div`
+  grid-area: navbar;
 `;
-const CloseButton = styled.div`
-  display: inline-block;
-  padding: .25rem;
-  margin: -3rem -1.25rem 0 .5rem;
-  height: 1.25rem;
-  width: 1.25rem;
-  font-size: 1.25rem;
-  &:hover {
-    cursor: pointer;
-    opacity: .9;
-  }
-`;
+
+
 
 export default Main;
