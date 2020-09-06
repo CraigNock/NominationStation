@@ -99,6 +99,12 @@ const StyledDiv = styled.div`
   overflow-Y: auto;
   border-radius: .5rem;
   /* border: 3px ridge darkgoldenrod; */
+  @media (min-width: ${`${MEDIA_GATE.tablet}px`}){
+    
+  };
+  @media (min-width: ${`${MEDIA_GATE.desktop}px`}){
+    
+  };
 `;
 const Gallery = styled(motion.div)`
   display: flex;

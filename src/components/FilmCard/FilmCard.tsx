@@ -53,12 +53,17 @@ const StyledDiv = styled(motion.div)`
   color: darkslategray;
   overflow:hidden;
   p {
-
     span{
       font-style: italic;
       font-size: .8rem;
-    }
-  }
+    };
+  };
+  @media (min-width: ${`${MEDIA_GATE.tablet}px`}){
+    
+  };
+  @media (min-width: ${`${MEDIA_GATE.desktop}px`}){
+    
+  };
 `;
 const PosterBox = styled.div`
   height: 6rem;

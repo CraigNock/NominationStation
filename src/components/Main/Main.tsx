@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import { motion, AnimateSharedLayout } from "framer-motion";
-
+import { AnimateSharedLayout } from "framer-motion";
 
 import SearchBar from '../Searchbar';
 import FilmsDisplay from '../FilmsDisplay';
@@ -13,6 +12,7 @@ import {searchResults} from '../../types';
 
 import {usePersistedState} from '../../utils';
 // import {placeholderResults} from '../../utils';
+import {MEDIA_GATE} from '../../constants';
 
 import Snackbar from '@material-ui/core/Snackbar';
 
@@ -105,8 +105,18 @@ const StyledDiv = styled.div`
 
   background: rgb(43,45,47);
   background: linear-gradient(180deg, 
-    rgba(43,45,47,1) 60%, rgba(255,219,126,.1) 100%);
-
+    rgba(43,45,47,.95) 60%, rgba(255,219,126,.3) 100%);
+  
+  @media (min-width: ${`${MEDIA_GATE.tablet}px`}){
+    
+  };
+  @media (min-width: ${`${MEDIA_GATE.desktop}px`}){
+    grid-template-columns: 1fr 3fr 1fr ;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+    'space''navbar''space'
+    'space''results''space';
+  }
 `;
 const Title = styled.h1`
   margin: .5rem;

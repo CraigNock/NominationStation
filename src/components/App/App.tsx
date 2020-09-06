@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import GlobalStyles from '../../Globalstyles';
 import Main from '../Main';
 
+import train from '../../assets/trainlight.png';
+
 const App = () => {
 
   return (
@@ -15,7 +17,7 @@ const App = () => {
 };
 
 const Wrapper = styled.div`
-
+  background-image: url(${train});
 `;
 
 export default App;
