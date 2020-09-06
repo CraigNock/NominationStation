@@ -115,6 +115,8 @@ const Gallery = styled(motion.div)`
 `;
 const MoreButton = styled(motion.button)`
   padding: .5rem;
+  margin-top: .5rem;
+  width: 40%;
   background: none;
   color: whitesmoke;
   font-family: 'Limelight', cursive;
@@ -124,5 +126,10 @@ const MoreButton = styled(motion.button)`
   -webkit-box-shadow: 0px 3px 15px rgba(245,245,245,.5);
   -moz-box-shadow: 0px 3px 15px rgba(245,245,245,.5);
   box-shadow: inset 0px 3px 15px rgba(245,245,245,.5), 0px 3px 15px rgba(245,245,245,.5);
-
+  @media (min-width: ${MEDIA_GATE.tablet}px){
+    width: 60%;
+  };
+  @media (min-width: ${MEDIA_GATE.desktop}px){
+    margin: .5rem 10rem;
+  };
 `;

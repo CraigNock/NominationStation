@@ -70,6 +70,7 @@ const Main = () => {
             setSearchResults={setSearchResults}
           />
         </NavBar>
+      </AnimateSharedLayout>
         <FilmsDisplay
           nominations={nominations}
           searchResults={searchResults}
@@ -86,7 +87,7 @@ const Main = () => {
             handleClose={handleClose}
           />
         </Snackbar>
-      </AnimateSharedLayout>
+      
     </StyledDiv>
   );
 }
@@ -107,16 +108,20 @@ const StyledDiv = styled.div`
   background: linear-gradient(180deg, 
     rgba(43,45,47,.95) 60%, rgba(255,219,126,.3) 100%);
   
-  @media (min-width: ${MEDIA_GATE.tablet}px){
-    
-  };
-  @media (min-width: ${MEDIA_GATE.desktop}px){
-    grid-template-columns: 1fr 3fr 1fr ;
+  /* @media (min-width: ${MEDIA_GATE.tablet}px){
+    grid-template-columns: 1fr 8fr 1fr ;
     grid-template-rows: auto 1fr;
     grid-template-areas: 
     'empty navbar space'
-    'empty results space'
-  }
+    'results results results'
+  }; */
+  @media (min-width: ${MEDIA_GATE.desktop}px){
+    grid-template-columns: 1fr 8fr 1fr ;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+    'empty navbar space'
+    'results results results'
+  } 
 `;
 const Title = styled.h1`
   margin: .5rem;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'; 
 import styled from 'styled-components'; 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 
 import FilmCard from '../FilmCard';
 import NominateButtonWrap from '../NominateButtonWrap';
@@ -22,10 +22,11 @@ interface props {
 const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => { 
 //state to toggle full nomination list
   const [show, setShow] = useState<boolean>(false);
-
   const toggleShow = ():void => {
     setShow(!show);
-  }
+  };
+
+  
 
   return (
     <StyledDiv > 
@@ -42,13 +43,14 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
           {show? <IoIosArrowUp/> : <IoIosArrowDown/>}
         </ToggleArrow>
       </NominationBar>
+      <AnimateSharedLayout>
       <AnimatePresence >
         {show && <Gallery
           layout
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: `${nominations.length * 8}rem` }}
           exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 1.1 }}
+          transition={{ duration: 1.1}}
         >
           {(nominations.length)? nominations.map((nom: singleFilm, id: number) => {
             return (
@@ -72,7 +74,7 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
           : ''}
         </Gallery>}
       </AnimatePresence>
-      
+      </AnimateSharedLayout>
     </StyledDiv> 
   ) 
 }; 

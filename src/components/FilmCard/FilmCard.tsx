@@ -1,6 +1,6 @@
 import React, {useState, PropsWithChildren } from 'react'; 
 import styled from 'styled-components'; 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import {MEDIA_GATE} from '../../constants';
 import posterIcon from '../../assets/addrk.png';
@@ -15,12 +15,13 @@ interface props {
 const FilmCard: React.FC<PropsWithChildren<props>> = ({index, title, year, poster, children}) => { 
   const [imgError, setImgError] = useState<boolean>(false);
   return (
+    <AnimatePresence >
     <StyledDiv
       layout 
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: '7rem' }}
       exit={{ opacity: 0, height: 0 }}
-      transition={{ duration: .5}}
+      transition={{ duration: 0.5}}
     > 
       <PosterBox>
         <PosterImage src={(imgError || poster === undefined)? posterIcon : poster} 
@@ -38,6 +39,7 @@ const FilmCard: React.FC<PropsWithChildren<props>> = ({index, title, year, poste
       </Name>
       {children}
     </StyledDiv> 
+    </AnimatePresence>
   ) 
 }; 
 
@@ -51,6 +53,8 @@ const StyledDiv = styled(motion.div)`
   align-items: center;
   justify-content: space-between;
   width: 90%;
+  min-width: 16rem;
+  height: 7rem;
   padding: 0 .75rem;
   margin: .5rem;
   background: whitesmoke;
@@ -64,10 +68,13 @@ const StyledDiv = styled(motion.div)`
     };
   };
   @media (min-width: ${MEDIA_GATE.tablet}px){
-    
+    width: 40%;
   };
   @media (min-width: ${MEDIA_GATE.desktop}px){
-    
+    width: 30%;
+  };
+  @media (min-width: ${MEDIA_GATE.widescreen}px){
+    width: 20%;
   };
 `;
 const PosterBox = styled.div`

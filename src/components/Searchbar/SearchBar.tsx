@@ -99,7 +99,8 @@ const StyledForm = styled.form`
     
   };
   @media (min-width: ${MEDIA_GATE.desktop}px){
-    
+    max-width: 50vw;
+    margin: 1rem auto;
   };
 `;
 const SearchBox = styled.div`
