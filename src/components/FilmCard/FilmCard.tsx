@@ -1,9 +1,9 @@
-import React, { PropsWithChildren } from 'react'; 
+import React, {useState, PropsWithChildren } from 'react'; 
 import styled from 'styled-components'; 
 import { motion } from 'framer-motion';
 
 import {MEDIA_GATE} from '../../constants';
-
+import posterIcon from '../../assets/addrk.png';
 
 interface props {
   index: number,
@@ -13,7 +13,7 @@ interface props {
 };
 
 const FilmCard: React.FC<PropsWithChildren<props>> = ({index, title, year, poster, children}) => { 
-
+  const [imgError, setImgError] = useState<boolean>(false);
   return (
     <StyledDiv
       layout 
@@ -23,7 +23,10 @@ const FilmCard: React.FC<PropsWithChildren<props>> = ({index, title, year, poste
       transition={{ duration: .5}}
     > 
       <PosterBox>
-        <PosterImage src={poster} alt={`Movie poster for ${title}`}/>
+        <PosterImage src={(imgError || poster === undefined)? posterIcon : poster} 
+        alt={`Movie poster for ${title}`}
+        onError={()=> setImgError(true)}
+        />
       </PosterBox>
       <Name>
         <p>
@@ -60,10 +63,10 @@ const StyledDiv = styled(motion.div)`
       font-size: .8rem;
     };
   };
-  @media (min-width: ${`${MEDIA_GATE.tablet}px`}){
+  @media (min-width: ${MEDIA_GATE.tablet}px){
     
   };
-  @media (min-width: ${`${MEDIA_GATE.desktop}px`}){
+  @media (min-width: ${MEDIA_GATE.desktop}px){
     
   };
 `;

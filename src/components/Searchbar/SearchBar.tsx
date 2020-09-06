@@ -95,10 +95,10 @@ const StyledForm = styled.form`
   display: flex;
   align-items: center;
   margin: 1rem 1rem .5rem;
-  @media (min-width: ${`${MEDIA_GATE.tablet}px`}){
+  @media (min-width: ${MEDIA_GATE.tablet}px){
     
   };
-  @media (min-width: ${`${MEDIA_GATE.desktop}px`}){
+  @media (min-width: ${MEDIA_GATE.desktop}px){
     
   };
 `;

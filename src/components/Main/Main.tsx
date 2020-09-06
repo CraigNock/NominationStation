@@ -107,15 +107,15 @@ const StyledDiv = styled.div`
   background: linear-gradient(180deg, 
     rgba(43,45,47,.95) 60%, rgba(255,219,126,.3) 100%);
   
-  @media (min-width: ${`${MEDIA_GATE.tablet}px`}){
+  @media (min-width: ${MEDIA_GATE.tablet}px){
     
   };
-  @media (min-width: ${`${MEDIA_GATE.desktop}px`}){
+  @media (min-width: ${MEDIA_GATE.desktop}px){
     grid-template-columns: 1fr 3fr 1fr ;
     grid-template-rows: auto 1fr;
     grid-template-areas: 
-    'space''navbar''space'
-    'space''results''space';
+    'empty navbar space'
+    'empty results space'
   }
 `;
 const Title = styled.h1`
@@ -128,6 +128,7 @@ const Title = styled.h1`
 const NavBar = styled.div`
   grid-area: navbar;
 `;
+
 
 
 

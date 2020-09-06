@@ -8,9 +8,9 @@ export const MEDIA_GATE: {[key: string]: number} = {
   desktop: 800,
 };
 
-// @media (min-width: ${`${MEDIA_GATE.tablet}px`}){
+// @media (min-width: ${MEDIA_GATE.tablet}px){
     
 // };
-// @media (min-width: ${`${MEDIA_GATE.desktop}px`}){
+// @media (min-width: ${MEDIA_GATE.desktop}px){
   
 // };

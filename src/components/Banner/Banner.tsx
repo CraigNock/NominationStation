@@ -45,10 +45,10 @@ const StyledDiv = styled.div`
   border-radius: 1rem;
   /* border: 4px double darkgoldenrod; */
   box-shadow: 0px 0px 50px rgba(218,165,32,1), inset 0px 0px 5px rgba(218,165,32,.5);
-  @media (min-width: ${`${MEDIA_GATE.tablet}px`}){
+  @media (min-width: ${MEDIA_GATE.tablet}px){
     
   };
-  @media (min-width: ${`${MEDIA_GATE.desktop}px`}){
+  @media (min-width: ${MEDIA_GATE.desktop}px){
     
   };
 `;

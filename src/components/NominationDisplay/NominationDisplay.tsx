@@ -109,10 +109,10 @@ const Gallery = styled(motion.div)`
   justify-content: center;
   flex-wrap: wrap;
   overflow: hidden;
-  @media (min-width: ${`${MEDIA_GATE.tablet}px`}){
+  @media (min-width: ${MEDIA_GATE.tablet}px){
     
   };
-  @media (min-width: ${`${MEDIA_GATE.desktop}px`}){
+  @media (min-width: ${MEDIA_GATE.desktop}px){
     
   };
 `;
