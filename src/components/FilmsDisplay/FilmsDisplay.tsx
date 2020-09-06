@@ -10,6 +10,8 @@ import {getFilms} from '../../apiCalls';
 import {singleFilm} from '../../types';
 import {searchResults} from '../../types';
 import {getFilmsResults} from '../../types';
+import {MEDIA_GATE} from '../../constants';
+
 
 import {FaAward} from 'react-icons/fa';
 

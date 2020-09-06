@@ -1,6 +1,8 @@
 import React from 'react'; 
 import styled from 'styled-components'; 
 
+import {MEDIA_GATE} from '../../constants';
+
 import {GiFilmSpool} from 'react-icons/gi';
 import {IoMdCloseCircle} from 'react-icons/io';
 

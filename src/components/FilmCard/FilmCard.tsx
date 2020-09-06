@@ -2,6 +2,8 @@ import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components'; 
 import { motion } from 'framer-motion';
 
+import {MEDIA_GATE} from '../../constants';
+
 
 interface props {
   index: number,

@@ -6,6 +6,8 @@ import {getFilms} from '../../apiCalls';
 
 import {getFilmsResults} from '../../types';
 import {searchResults} from '../../types';
+import {MEDIA_GATE} from '../../constants';
+
 
 interface props {
   searchResults: searchResults,

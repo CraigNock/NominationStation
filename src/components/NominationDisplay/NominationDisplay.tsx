@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import FilmCard from '../FilmCard';
 import NominateButtonWrap from '../NominateButtonWrap';
 import {singleFilm} from '../../types';
+import {MEDIA_GATE} from '../../constants';
+
 
 import {IoIosArrowDown} from 'react-icons/io';
 import {IoIosArrowUp} from 'react-icons/io';
