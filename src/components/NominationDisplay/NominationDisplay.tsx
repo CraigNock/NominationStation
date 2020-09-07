@@ -10,7 +10,6 @@ import {MEDIA_GATE} from '../../constants';
 
 import {IoIosArrowDown} from 'react-icons/io';
 import {IoIosArrowUp} from 'react-icons/io';
-// import {IoMdRemoveCircle} from 'react-icons/io';
 import {IoMdRemoveCircleOutline} from 'react-icons/io';
 
 
@@ -19,6 +18,17 @@ interface props {
   toggleNomination: (film: singleFilm) => void,
 }
 
+//Styling object to be conditionally applied to nomination count
+const fives = {
+  color: 'darkgoldenrod',
+  fontSize: '1.25rem',
+  borderRadius: '50%',
+  webkitBoxShadow: '0px 3px 15px rgba(218,165,32,.5)',
+  mozBoxShadow: '0px 3px 15px rgba(218,165,32,.5)',
+  boxShadow: '0px 3px 15px rgba(218,165,32,.5)',
+  };
+
+//// Displays films that user has nominated ////
 const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => { 
 //state to toggle full nomination list
   const [show, setShow] = useState<boolean>(false);
@@ -33,7 +43,7 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
       > 
         <span>Your Nominations</span> 
         <span
-          style={{color: (nominations.length === 5)? 'darkgoldenrod': 'inherit'}}
+          style={(nominations.length === 5)? fives: {}}
         >
           {`${nominations.length}/5`}
         </span> 

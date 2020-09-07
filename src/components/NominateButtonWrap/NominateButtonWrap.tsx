@@ -2,11 +2,11 @@ import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components'; 
 import { motion } from 'framer-motion';
 
-
 interface props {
   color: string,
 };
 
+//// A wrap to style buttons that will be used for selection/deselection ////
 const NominateButtonWrap: React.FC<PropsWithChildren<props>> = ({color, children}) => { 
 
   return (

@@ -12,6 +12,7 @@ interface props {
   poster: string,
 };
 
+//// Card for display/selection of individual film data ////
 const FilmCard: React.FC<PropsWithChildren<props>> = ({index, title, year, poster, children}) => { 
   const [imgError, setImgError] = useState<boolean>(false);
   return (

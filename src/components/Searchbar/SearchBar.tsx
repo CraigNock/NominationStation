@@ -12,20 +12,26 @@ import {MEDIA_GATE} from '../../constants';
 interface props {
   searchResults: searchResults,
   setSearchResults: React.Dispatch<React.SetStateAction<searchResults>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-
-const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => { 
-
+//// Search form to retrieve film list for display/selection ////
+const SearchBar: React.FC<props> = ({searchResults, setSearchResults, setLoading}) => { 
+//updates shown value in form
   const [inputValue, setInputValue] = useState<string>('');
+//disables submit button while searching
   const [disable, setDisable] = useState<boolean>(false);
+//used to display total results found (but not shown)
   const [resultCount, setResultCount] = useState<string>('');
+//used to display errors returned from fetch
   const [error, setError] = useState<string>('');
 
+////Function to fetch intial results of search////
   const submitHandle = async (search:string, page: number) : Promise<any> => {
     if(!search || search.length < 2) return;
 //disables search button until results fetched
     setDisable(true);
+    setLoading(true);
     let results: getFilmsResults | string = await getFilms(search, page);
 //if there is an error; typeof results will be 'string'
     if(typeof results === 'object'){
@@ -41,6 +47,7 @@ const SearchBar: React.FC<props> = ({searchResults, setSearchResults}) => {
       setError(results);
     };
     setDisable(false);
+    setLoading(false);
   };
 
   return (

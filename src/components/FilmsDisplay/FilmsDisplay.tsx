@@ -21,12 +21,15 @@ interface props {
   setSearchResults: React.Dispatch<React.SetStateAction<searchResults>>,
   nominations: singleFilm[],
   toggleNomination: (film: singleFilm) => void,
+  loading: boolean,
 }
 
-const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominations, toggleNomination}) => { 
-//to disable showmorebutton while fetching
+//// Display for film search results ////
+const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominations, toggleNomination, loading}) => { 
+//to disable "Show More" button while fetching
   const [disable, setDisable] = useState<boolean>(false);
 
+////Function to fetch more results when "Show More" is selected and add them to searchResults////
   const handleGetMoreResults = async () : Promise<any> => {
   //if all possible results are already displayed, return
     if(parseInt(searchResults.count) <= searchResults.films.length) return;
@@ -35,6 +38,7 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
     let page = Math.floor(searchResults.films.length / 10) + 1;
     let results: getFilmsResults | string = await getFilms(searchResults.searchTerm, page);
     let newResults = [...searchResults.films];
+  //if there is an error; typeof results will be 'string'
     if(typeof results === 'object'){
       newResults = newResults.concat(results.films);
       setSearchResults({
@@ -80,10 +84,11 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
           >
             Show More
           </MoreButton>
-        : <Loader/>
+        : ''
         }
       </Gallery>
       </AnimatePresence>
+      {(loading || disable) && <Loader/>}
     </StyledDiv> 
   ) 
 }; 
@@ -100,12 +105,6 @@ const StyledDiv = styled.div`
   overflow-Y: auto;
   border-radius: .5rem;
   /* border: 3px ridge darkgoldenrod; */
-  @media (min-width: ${MEDIA_GATE.tablet}px){
-    
-  };
-  @media (min-width: ${MEDIA_GATE.desktop}px){
-    
-  };
 `;
 const Gallery = styled(motion.div)`
   display: flex;

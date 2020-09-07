@@ -6,6 +6,7 @@ import SearchBar from '../Searchbar';
 import FilmsDisplay from '../FilmsDisplay';
 import NominationsDisplay from '../NominationDisplay';
 import Banner from '../Banner';
+import Loader from '../Loader';
 
 import {singleFilm} from '../../types';
 import {searchResults} from '../../types';
@@ -30,7 +31,8 @@ const Main = () => {
   });
 //toggle banner open
   const[bannerOpen, setBannerOpen] = useState<boolean>(false);
-
+//display Loader when loading
+  const [loading, setLoading] = useState<boolean>(false);
 
 //Function to toggle whether film is nominated by user
   const toggleNomination = (film : singleFilm): void => {
@@ -43,7 +45,7 @@ const Main = () => {
       setNominations(newNoms);
     };
   };
-//shows alert when nomination slots full
+//shows banner when nomination slots full
   useEffect(()=>{
     if(nominations.length < 5)return;
     setBannerOpen(true);
@@ -68,6 +70,7 @@ const Main = () => {
           <SearchBar
             searchResults={searchResults}
             setSearchResults={setSearchResults}
+            setLoading={setLoading}
           />
         </NavBar>
       </AnimateSharedLayout>
@@ -76,6 +79,7 @@ const Main = () => {
           searchResults={searchResults}
           setSearchResults={setSearchResults}
           toggleNomination={toggleNomination}
+          loading={loading}
         />
         <Snackbar
           open={bannerOpen}
