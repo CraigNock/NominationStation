@@ -49,6 +49,7 @@ export default FilmCard;
 
 const StyledDiv = styled(motion.div)`
   display: flex;
+  flex: 1;
   /* flex-direction: column; */
   align-items: center;
   justify-content: space-between;
@@ -69,12 +70,15 @@ const StyledDiv = styled(motion.div)`
   };
   @media (min-width: ${MEDIA_GATE.tablet}px){
     width: 40%;
+    max-width: 40%;
   };
   @media (min-width: ${MEDIA_GATE.desktop}px){
     width: 30%;
+    max-width: 30%;
   };
   @media (min-width: ${MEDIA_GATE.widescreen}px){
     width: 20%;
+    max-width: 20%;
   };
 `;
 const PosterBox = styled.div`

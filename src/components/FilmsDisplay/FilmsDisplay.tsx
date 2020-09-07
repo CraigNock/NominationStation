@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import FilmCard from '../FilmCard';
 import NominateButtonWrap from '../NominateButtonWrap';
+import Loader from '../Loader';
 
 import {getFilms} from '../../apiCalls';
 
@@ -47,9 +48,7 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
   return (
     <StyledDiv> 
       <AnimatePresence>
-      <Gallery
-        
-      >
+      <Gallery>
         {(searchResults.films?.length > 0)? searchResults.films.map((nom: singleFilm, id: number) => {
           return (
             <FilmCard
@@ -81,7 +80,7 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
           >
             Show More
           </MoreButton>
-        :''
+        : <Loader/>
         }
       </Gallery>
       </AnimatePresence>

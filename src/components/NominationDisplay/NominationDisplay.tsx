@@ -26,8 +26,6 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
     setShow(!show);
   };
 
-  
-
   return (
     <StyledDiv > 
       <NominationBar
@@ -45,10 +43,10 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
       </NominationBar>
       <AnimateSharedLayout>
       <AnimatePresence >
-        {show && <Gallery
+        <Gallery
           layout
           initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: `${nominations.length * 8}rem` }}
+          animate={{ opacity: 1, height: show? 'fit-content': 0 }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 1.1}}
         >
@@ -72,7 +70,7 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
             )
           })
           : ''}
-        </Gallery>}
+        </Gallery>
       </AnimatePresence>
       </AnimateSharedLayout>
     </StyledDiv> 
@@ -90,6 +88,10 @@ const StyledDiv = styled(motion.div)`
   color: darkslategray;
   border-radius: .5rem;
   border: 3px double darkgoldenrod;
+  background: linear-gradient(90deg, 
+    rgba(220,220,220,1) 0%, 
+    rgba(192,192,192,1) 50%, 
+    rgba(220,220,220,1) 100%);
   
 `;
 const NominationBar = styled.div`
