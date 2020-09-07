@@ -6,7 +6,6 @@ import SearchBar from '../Searchbar';
 import FilmsDisplay from '../FilmsDisplay';
 import NominationsDisplay from '../NominationDisplay';
 import Banner from '../Banner';
-import Loader from '../Loader';
 
 import {singleFilm} from '../../types';
 import {searchResults} from '../../types';
@@ -97,9 +96,6 @@ const Main = () => {
 }
 
 const StyledDiv = styled.div`
-  /* display: flex;
-  flex-direction: column; */
-
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
@@ -113,11 +109,7 @@ const StyledDiv = styled.div`
     rgba(43,45,47,.95) 60%, rgba(255,219,126,.3) 100%);
   
   /* @media (min-width: ${MEDIA_GATE.tablet}px){
-    grid-template-columns: 1fr 8fr 1fr ;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: 
-    'empty navbar space'
-    'results results results'
+
   }; */
   @media (min-width: ${MEDIA_GATE.desktop}px){
     grid-template-columns: 1fr 8fr 1fr ;
