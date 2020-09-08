@@ -3,7 +3,7 @@
 
 Welcome to the *Nomination Station*!
 
-An application for users to browse for and select their favourite films for award nomination!
+An application for users to browse for and select five of their favourite films for award nomination!
 
 ## Live Here: https://nominationstation.herokuapp.com/
 
@@ -11,7 +11,7 @@ An application for users to browse for and select their favourite films for awar
 
 Built with **TypeScript**, **JavaScript**, and **React**.
 
-Front end Build is served by a small Express.js server.
+Front End content is served by a small Express.js server.
 
 ---
 
@@ -79,3 +79,7 @@ If you wish to contact the creator you can reach me by:
 - LinkedIn: https://www.linkedin.com/in/craig-nockels/
 
 Or check out my other projects at https://github.com/CraigNock
+
+---
+
+I hope you enjoyed your transit through the Nomination Station!
