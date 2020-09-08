@@ -33,36 +33,37 @@ const ModalContent : React.FC<props> = ({filmId}) => {
 
   return (
     <Wrapper>
-      <PosterBox>
-        <PosterImage src={(imgError || filmData.Poster === undefined)? posterIcon : filmData.Poster} 
-        alt={`Movie poster for ${filmData.Title}`}
-        onError={()=> setImgError(true)}
-        />
-      </PosterBox>
-      <Title>
-        {`${filmData.Title} (${filmData.Year})`}
-      </Title>
-      <Info>
-        <p>
-          <span>Rated:</span>{` ${filmData.Rated}`}
-        </p>
-        <p>
-          <span>Runtime:</span>{` ${filmData.Runtime}`}
-        </p>
-        <p>
-          <span>Genre:</span>{` ${filmData.Genre}`}
-        </p>
-        <p>
-          <span>Director(s):</span>{` ${filmData.Director}`}
-        </p>
-        <p>
-          <span>Actors:</span>{` ${filmData.Actors}`}
-        </p>
-        <p>
-        <span>Synopsis:</span>{` ${filmData.Plot}`}
-        </p>
-      </Info>
-      {loading && <Loader/>}
+      {(loading)? <Loader/> : <>
+        <PosterBox>
+          <PosterImage src={(imgError || filmData.Poster === 'N/A')? posterIcon : filmData.Poster} 
+          alt={`Movie poster for ${filmData.Title}`}
+          onError={()=> setImgError(true)}
+          />
+        </PosterBox>
+        <Title>
+          {`${filmData.Title} (${filmData.Year})`}
+        </Title>
+        <Info>
+          <p>
+            <span>Rated:</span>{` ${filmData.Rated}`}
+          </p>
+          <p>
+            <span>Runtime:</span>{` ${filmData.Runtime}`}
+          </p>
+          <p>
+            <span>Genre:</span>{` ${filmData.Genre}`}
+          </p>
+          <p>
+            <span>Director(s):</span>{` ${filmData.Director}`}
+          </p>
+          <p>
+            <span>Actors:</span>{` ${filmData.Actors}`}
+          </p>
+          <p>
+          <span>Synopsis:</span>{` ${filmData.Plot}`}
+          </p>
+        </Info>
+      </>}
     </Wrapper>
   )
 }

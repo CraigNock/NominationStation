@@ -57,7 +57,7 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination, setM
         <Gallery
           layout
           initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: show? 'fit-content': 0 }}
+          animate={{ opacity: 1, height: show? 'auto': 0 }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 1.1}}
         >
@@ -108,7 +108,7 @@ const StyledDiv = styled(motion.div)`
     rgba(220,220,220,1) 0%, 
     rgba(192,192,192,1) 50%, 
     rgba(220,220,220,1) 100%);
-  
+  overflow: hidden;
 `;
 const NominationBar = styled.div`
   display: flex;
@@ -130,10 +130,5 @@ const Gallery = styled(motion.div)`
   justify-content: center;
   flex-wrap: wrap;
   overflow: hidden;
-  @media (min-width: ${MEDIA_GATE.tablet}px){
-    
-  };
-  @media (min-width: ${MEDIA_GATE.desktop}px){
-    
-  };
+
 `;

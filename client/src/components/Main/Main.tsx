@@ -99,7 +99,7 @@ const Main = () => {
         open={(modal !== '')}
         onClose={()=>setModal('')}
         maxWidth={'lg'}
-        fullWidth={true}
+        fullWidth={false}
       >
         {(modal !== '') && <ModalContent filmId={modal} />}
       </Dialog>
@@ -115,14 +115,9 @@ const StyledDiv = styled.div`
   grid-template-areas: 
     'navbar'
     'results';
-
   background: rgb(43,45,47);
   background: linear-gradient(180deg, 
     rgba(43,45,47,.95) 60%, rgba(255,219,126,.3) 100%);
-  
-  /* @media (min-width: ${MEDIA_GATE.tablet}px){
-
-  }; */
   @media (min-width: ${MEDIA_GATE.desktop}px){
     grid-template-columns: 1fr 8fr 1fr ;
     grid-template-rows: auto 1fr;

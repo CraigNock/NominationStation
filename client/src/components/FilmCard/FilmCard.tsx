@@ -30,7 +30,7 @@ const FilmCard: React.FC<PropsWithChildren<props>> = ({index, id, title, year, p
       whileTap={{ scale: 0.9 }}
     > 
       <PosterBox>
-        <PosterImage src={(imgError || poster === undefined)? posterIcon : poster} 
+        <PosterImage src={(imgError || poster === 'N/A')? posterIcon : poster} 
         alt={`Movie poster for ${title}`}
         onError={()=> setImgError(true)}
         />
@@ -104,4 +104,7 @@ const PosterImage = styled.img`
 const Name = styled.div`
   width: 100%;
   margin: 0 2rem;
+  &:hover{
+    text-decoration: underline;
+  }
 `;

@@ -1,5 +1,5 @@
 
-
+//// Gets all films that are flagged by search term ////
 export const getFilms = async (searchTerm: string | null, page: number): Promise<any> => {
   if (!searchTerm) return;
 
@@ -23,7 +23,7 @@ export const getFilms = async (searchTerm: string | null, page: number): Promise
   
 };
 
-
+//// Gets details of a single film ////
 export const getSingleFilm = async (filmId: string): Promise<any> => {
   if (!filmId) return;
   

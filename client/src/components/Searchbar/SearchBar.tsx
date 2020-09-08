@@ -102,9 +102,6 @@ const StyledForm = styled.form`
   display: flex;
   align-items: center;
   margin: 1rem 1rem .5rem;
-  @media (min-width: ${MEDIA_GATE.tablet}px){
-    
-  };
   @media (min-width: ${MEDIA_GATE.desktop}px){
     max-width: 50vw;
     margin: 1rem auto;
@@ -157,9 +154,7 @@ const SearchButton = styled(motion.button)`
   box-shadow: 0px 3px 15px rgba(218,165,32,.5);
 `;
 const Message = styled.p`
-  /* margin-bottom: .5rem; */
   margin: 1rem 0 .5rem 2rem;
-  /* text-align: center; */
   font-size: .8rem;
   color: goldenrod;
   font-family: 'Limelight', cursive;
