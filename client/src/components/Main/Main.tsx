@@ -6,6 +6,7 @@ import SearchBar from '../Searchbar';
 import FilmsDisplay from '../FilmsDisplay';
 import NominationsDisplay from '../NominationDisplay';
 import Banner from '../Banner';
+import ModalContent from '../ModalContent';
 
 import {singleFilm} from '../../types';
 import {searchResults} from '../../types';
@@ -15,7 +16,7 @@ import {usePersistedState} from '../../utils';
 import {MEDIA_GATE} from '../../constants';
 
 import Snackbar from '@material-ui/core/Snackbar';
-
+import Dialog from '@material-ui/core/Dialog';
 
 
 const Main = () => {
@@ -32,6 +33,8 @@ const Main = () => {
   const[bannerOpen, setBannerOpen] = useState<boolean>(false);
 //display Loader when loading
   const [loading, setLoading] = useState<boolean>(false);
+
+  const [modal, setModal] = useState<string>('');
 
 //Function to toggle whether film is nominated by user
   const toggleNomination = (film : singleFilm): void => {
@@ -65,6 +68,7 @@ const Main = () => {
           <NominationsDisplay
             nominations={nominations}
             toggleNomination={toggleNomination}
+            setModal={setModal}
           />
           <SearchBar
             searchResults={searchResults}
@@ -73,24 +77,32 @@ const Main = () => {
           />
         </NavBar>
       </AnimateSharedLayout>
-        <FilmsDisplay
-          nominations={nominations}
-          searchResults={searchResults}
-          setSearchResults={setSearchResults}
-          toggleNomination={toggleNomination}
-          loading={loading}
+      <FilmsDisplay
+        nominations={nominations}
+        searchResults={searchResults}
+        setSearchResults={setSearchResults}
+        toggleNomination={toggleNomination}
+        loading={loading}
+        setModal={setModal}
+      />
+      <Snackbar
+        open={bannerOpen}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}
+      >
+        <Banner
+          handleClose={handleClose}
         />
-        <Snackbar
-          open={bannerOpen}
-          autoHideDuration={5000}
-          onClose={handleClose}
-          anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}
-        >
-          <Banner
-            handleClose={handleClose}
-          />
-        </Snackbar>
-      
+      </Snackbar>
+      <Dialog
+        open={(modal !== '')}
+        onClose={()=>setModal('')}
+        maxWidth={'lg'}
+        fullWidth={true}
+      >
+        {(modal !== '') && <ModalContent filmId={modal} />}
+      </Dialog>
     </StyledDiv>
   );
 }

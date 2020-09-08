@@ -24,20 +24,20 @@ export const getFilms = async (searchTerm: string | null, page: number): Promise
 };
 
 
-export const getSingleFilm = (idNum: number | null) => {
-  if (!idNum) return;
+export const getSingleFilm = async (filmId: string): Promise<any> => {
+  if (!filmId) return;
   
-  fetch(`https://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${idNum}&type=movie&plot=full`)
+  return fetch(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${filmId}&type=movie`)
   .then(data => data.json())
   .then(data => {
-    if(data.status === 200){
-      console.log('getSingleFilm data', data);
+    if(data.Response !== 'False'){
       return data;
     } else {
-      return null; //or status: use for error message on page
+      return (data.Error? data.Error : 'An error has occured');
     }
   })
   .catch(err=>{
     console.log('getFilmsFetchERR', err);
+    return 'An error has occured';
   })
 }

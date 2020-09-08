@@ -16,12 +16,13 @@ import {IoMdRemoveCircleOutline} from 'react-icons/io';
 interface props {
   nominations: singleFilm[],
   toggleNomination: (film: singleFilm) => void,
+  setModal: React.Dispatch<React.SetStateAction<string>>,
 }
 
 //Styling object to be conditionally applied to nomination count
 const fives = {
   color: 'darkgoldenrod',
-  fontSize: '1.25rem',
+  fontSize: '1.5rem',
   borderRadius: '50%',
   webkitBoxShadow: '0px 3px 15px rgba(218,165,32,.5)',
   mozBoxShadow: '0px 3px 15px rgba(218,165,32,.5)',
@@ -29,7 +30,7 @@ const fives = {
   };
 
 //// Displays films that user has nominated ////
-const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => { 
+const NominationDisplay: React.FC<props> = ({nominations, toggleNomination, setModal}) => { 
 //state to toggle full nomination list
   const [show, setShow] = useState<boolean>(false);
   const toggleShow = ():void => {
@@ -63,15 +64,20 @@ const NominationDisplay: React.FC<props> = ({nominations, toggleNomination}) => 
           {(nominations.length)? nominations.map((nom: singleFilm, id: number) => {
             return (
               <FilmCard
-              key={nom.imdbID}
-              index={id}
-              title={nom.Title}
-              year={nom.Year}
-              poster={nom.Poster}
+                key={nom.imdbID}
+                index={id}
+                id={nom.imdbID}
+                title={nom.Title}
+                year={nom.Year}
+                poster={nom.Poster}
+                setModal={setModal}
               >
                 <NominateButtonWrap color={'rgb(100,0,0)'}>
                   <button
-                    onClick={()=>toggleNomination(nom)}
+                    onClick={(ev)=>{
+                      ev.stopPropagation();
+                      toggleNomination(nom);
+                    }}
                   >
                     <IoMdRemoveCircleOutline/>
                   </button>
@@ -110,6 +116,7 @@ const NominationBar = styled.div`
   align-items: center;
   span {
     font-family: 'Limelight', cursive;
+    font-size: 1.25rem;
   }
   &:hover{
     cursor: pointer;

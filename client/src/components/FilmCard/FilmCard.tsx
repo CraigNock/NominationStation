@@ -7,13 +7,15 @@ import posterIcon from '../../assets/addrk.png';
 
 interface props {
   index: number,
+  id: string,
   title: string,
   year: string,
   poster: string,
+  setModal: React.Dispatch<React.SetStateAction<string>>,
 };
 
 //// Card for display/selection of individual film data ////
-const FilmCard: React.FC<PropsWithChildren<props>> = ({index, title, year, poster, children}) => { 
+const FilmCard: React.FC<PropsWithChildren<props>> = ({index, id, title, year, poster, children, setModal}) => { 
   const [imgError, setImgError] = useState<boolean>(false);
   return (
     <AnimatePresence >
@@ -23,6 +25,9 @@ const FilmCard: React.FC<PropsWithChildren<props>> = ({index, title, year, poste
       animate={{ opacity: 1, height: '7rem' }}
       exit={{ opacity: 0, height: 0 }}
       transition={{ duration: 0.5}}
+      onClick={()=>setModal(id)}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
     > 
       <PosterBox>
         <PosterImage src={(imgError || poster === undefined)? posterIcon : poster} 
@@ -69,6 +74,9 @@ const StyledDiv = styled(motion.div)`
       font-size: .8rem;
     };
   };
+  &:hover{
+    cursor: pointer;
+  }
   @media (min-width: ${MEDIA_GATE.tablet}px){
     width: 40%;
     max-width: 40%;

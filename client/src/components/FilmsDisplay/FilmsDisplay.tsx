@@ -22,10 +22,11 @@ interface props {
   nominations: singleFilm[],
   toggleNomination: (film: singleFilm) => void,
   loading: boolean,
+  setModal: React.Dispatch<React.SetStateAction<string>>,
 }
 
 //// Display for film search results ////
-const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominations, toggleNomination, loading}) => { 
+const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominations, toggleNomination, loading, setModal}) => { 
 //to disable "Show More" button while fetching
   const [disable, setDisable] = useState<boolean>(false);
 
@@ -58,9 +59,11 @@ const FilmsDisplay: React.FC<props> = ({searchResults, setSearchResults, nominat
             <FilmCard
               key={nom.imdbID}
               index={id}
+              id={nom.imdbID}
               title={nom.Title}
               year={nom.Year}
               poster={nom.Poster}
+              setModal={setModal}
             >
               <NominateButtonWrap color={'goldenrod'}>
                 <button
@@ -110,6 +113,23 @@ const Gallery = styled(motion.div)`
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+
+  --scrollbarBG: #CFD8DC;
+  --thumbBG: #90A4AE;
+  &::-webkit-scrollbar {
+    width: 11px;
+  };
+  scrollbar-width: thin;
+  scrollbar-color: #CFD8DC #90A4AE;
+  &::-webkit-scrollbar-track {
+    background: #CFD8DC;
+  };
+  &::-webkit-scrollbar-thumb {
+    background-color: #90A4AE;
+    border-radius: 6px;
+    border: 3px solid #CFD8DC;
+  };
+
 `;
 const MoreButton = styled(motion.button)`
   padding: .5rem;
